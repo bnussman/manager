@@ -6,6 +6,7 @@ import { makeStyles, Theme } from 'src/components/core/styles';
 import Typography from 'src/components/core/Typography';
 import Grid from 'src/components/Grid';
 import styled from 'src/containers/SummaryPanels.styles';
+import { useAccountPaymentMethodsQuery } from 'src/queries/accountPayment';
 import CreditCard from './CreditCard';
 import UpdateCreditCardDrawer from './UpdateCreditCardDrawer';
 
@@ -55,7 +56,7 @@ type CombinedProps = Props;
 const PaymentInformation: React.FC<CombinedProps> = (props) => {
   const classes = useStyles();
 
-  const { lastFour, expiry } = props;
+  const { data } = useAccountPaymentMethodsQuery();
 
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
@@ -79,7 +80,10 @@ const PaymentInformation: React.FC<CombinedProps> = (props) => {
         </div>
 
         <div className={classes.billingGroup}>
-          <CreditCard lastFour={lastFour} expiry={expiry} />
+          <CreditCard
+            lastFour={data?.data[0].data.last_four}
+            expiry={data?.data[0].data.expiry}
+          />
         </div>
 
         <UpdateCreditCardDrawer
