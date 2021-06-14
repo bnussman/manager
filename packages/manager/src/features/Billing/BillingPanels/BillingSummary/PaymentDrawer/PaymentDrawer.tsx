@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface Props {
+  lastFour: string;
+  expiry: string;
   open: boolean;
   onClose: () => void;
 }
@@ -39,8 +41,6 @@ interface Props {
 interface AccountContextProps {
   accountLoading: boolean;
   balance: false | number;
-  lastFour: string;
-  expiry: string;
 }
 
 export type CombinedProps = Props & AccountContextProps & AccountDispatchProps;
@@ -212,8 +212,6 @@ const withAccount = AccountContainer(
   (ownProps, { accountLoading, accountData }) => ({
     accountLoading,
     balance: accountData?.balance ?? false,
-    lastFour: accountData?.credit_card.last_four ?? '0000',
-    expiry: accountData?.credit_card.expiry ?? '',
   })
 );
 

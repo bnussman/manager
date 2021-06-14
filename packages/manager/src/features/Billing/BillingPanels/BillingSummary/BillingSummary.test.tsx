@@ -13,31 +13,59 @@ const accountBalanceValue = 'account-balance-value';
 
 describe('BillingSummary', () => {
   it('displays appropriate helper text and value when there is no balance', () => {
-    renderWithTheme(<BillingSummary balance={0} balanceUninvoiced={5} />);
+    renderWithTheme(
+      <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
+        balance={0}
+        balanceUninvoiced={5}
+      />
+    );
     within(screen.getByTestId(accountBalanceText)).getByText(/no balance/gi);
     within(screen.getByTestId(accountBalanceValue)).getByText('$0.00');
   });
 
   it('displays a credit when there is a negative balance', () => {
-    renderWithTheme(<BillingSummary balance={-10} balanceUninvoiced={5} />);
+    renderWithTheme(
+      <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
+        balance={-10}
+        balanceUninvoiced={5}
+      />
+    );
     within(screen.getByTestId(accountBalanceText)).getByText(/credit/gi);
     within(screen.getByTestId(accountBalanceValue)).getByText('$10.00');
   });
 
   it('displays an overdue payment notice when there is a positive balance', () => {
-    renderWithTheme(<BillingSummary balance={10} balanceUninvoiced={5} />);
+    renderWithTheme(
+      <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
+        balance={10}
+        balanceUninvoiced={5}
+      />
+    );
     within(screen.getByTestId(accountBalanceText)).getByText(/payment due/gi);
     within(screen.getByTestId(accountBalanceValue)).getByText('$10.00');
   });
 
   it('does not display the promotions section unless there are promos', async () => {
     const { rerender } = renderWithTheme(
-      <BillingSummary balance={0} balanceUninvoiced={5} />
+      <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
+        balance={0}
+        balanceUninvoiced={5}
+      />
     );
     expect(screen.queryByText('Promotions')).not.toBeInTheDocument();
     rerender(
       wrapWithTheme(
         <BillingSummary
+          expiry="06/2024"
+          lastFour="1234"
           balance={0}
           balanceUninvoiced={5}
           promotions={promoFactory.buildList(1)}
@@ -50,6 +78,8 @@ describe('BillingSummary', () => {
   it('renders promo summary, expiry, and credit remaining', () => {
     renderWithTheme(
       <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
         balance={0}
         balanceUninvoiced={5}
         promotions={promoFactory.buildList(1, {
@@ -74,6 +104,8 @@ describe('BillingSummary', () => {
     ];
     renderWithTheme(
       <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
         balance={0}
         balanceUninvoiced={5}
         promotions={promotions}
@@ -84,7 +116,14 @@ describe('BillingSummary', () => {
   });
 
   it('displays accrued charges', () => {
-    renderWithTheme(<BillingSummary balance={0} balanceUninvoiced={5} />);
+    renderWithTheme(
+      <BillingSummary
+        expiry="06/2024"
+        lastFour="1234"
+        balance={0}
+        balanceUninvoiced={5}
+      />
+    );
     within(screen.getByTestId('accrued-charges-value')).getByText('$5.00');
   });
 });

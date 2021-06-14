@@ -14,6 +14,10 @@ import BillingActivityPanel from './BillingPanels/BillingActivityPanel/BillingAc
 import BillingSummary from './BillingPanels/BillingSummary';
 import ContactInfo from './BillingPanels/ContactInfoPanel';
 import PaymentInformation from './BillingPanels/PaymentInfoPanel';
+import {
+  getCreditCard,
+  useAllPaymentMethodsQuery,
+} from 'src/queries/accountPayment';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {},
@@ -32,6 +36,12 @@ type CombinedProps = SetDocsProps & RouteComponentProps<{}>;
 
 export const BillingDetail: React.FC<CombinedProps> = (props) => {
   const { account, requestAccount } = useAccount();
+  const {
+    data: paymentMethods,
+    isLoading: isPaymentMethodsLoading,
+  } = useAllPaymentMethodsQuery();
+
+  const card = getCreditCard(paymentMethods);
 
   const classes = useStyles();
 
@@ -41,7 +51,10 @@ export const BillingDetail: React.FC<CombinedProps> = (props) => {
     }
   }, [account.loading, account.lastUpdated, requestAccount]);
 
-  if (account.loading && account.lastUpdated === 0) {
+  if (
+    isPaymentMethodsLoading ||
+    (account.loading && account.lastUpdated === 0)
+  ) {
     return <CircleProgress />;
   }
 
@@ -66,6 +79,8 @@ export const BillingDetail: React.FC<CombinedProps> = (props) => {
         <Grid container>
           <Grid item xs={12} md={12} lg={12} className={classes.main}>
             <BillingSummary
+              expiry={card?.data.expiry ?? ''}
+              lastFour={card?.data.last_four ?? ''}
               balance={account?.data?.balance ?? 0}
               promotions={account?.data?.active_promotions}
               balanceUninvoiced={account?.data?.balance_uninvoiced ?? 0}
@@ -86,14 +101,8 @@ export const BillingDetail: React.FC<CombinedProps> = (props) => {
                 taxId={account.data.tax_id}
               />
               <PaymentInformation
-                balance={account?.data?.balance ?? 0}
-                balanceUninvoiced={account?.data?.balance_uninvoiced ?? 0}
-                expiry={account?.data?.credit_card?.expiry ?? ''}
-                lastFour={account?.data?.credit_card?.last_four ?? ''}
-                promoCredit={
-                  account?.data?.active_promotions?.[0]
-                    ?.this_month_credit_remaining
-                }
+                expiry={card?.data.expiry ?? ''}
+                lastFour={card?.data.last_four ?? ''}
               />
             </Grid>
             <BillingActivityPanel

@@ -83,12 +83,14 @@ interface BillingSummaryProps {
   promotions?: ActivePromotion[];
   balanceUninvoiced: number;
   balance: number;
+  expiry: string;
+  lastFour: string;
 }
 
 export const BillingSummary: React.FC<BillingSummaryProps> = (props) => {
   const classes = useStyles();
 
-  const { promotions, balanceUninvoiced, balance } = props;
+  const { promotions, balanceUninvoiced, balance, expiry, lastFour } = props;
 
   //
   // Payment Drawer
@@ -225,7 +227,12 @@ export const BillingSummary: React.FC<BillingSummaryProps> = (props) => {
           </Paper>
         </Grid>
       </Grid>
-      <PaymentDrawer open={paymentDrawerOpen} onClose={closePaymentDrawer} />
+      <PaymentDrawer
+        expiry={expiry}
+        lastFour={lastFour}
+        open={paymentDrawerOpen}
+        onClose={closePaymentDrawer}
+      />
     </>
   );
 };

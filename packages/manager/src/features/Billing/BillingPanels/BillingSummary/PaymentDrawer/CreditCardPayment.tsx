@@ -9,7 +9,6 @@ import { cleanCVV } from 'src/features/Billing/billingUtils';
 import CreditCardDialog from './PaymentBits/CreditCardDialog';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
 import { SetSuccess } from './types';
-import { useAccountPaymentMethodsQuery } from 'src/queries/accountPayment';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -47,8 +46,8 @@ export interface Props {
 }
 
 export const CreditCard: React.FC<Props> = (props) => {
-  const { data } = useAccountPaymentMethodsQuery();
-  const { minimumPayment, setSuccess, usd } = props;
+  const { expiry, lastFour, minimumPayment, setSuccess, usd } = props;
+
   const [cvv, setCVV] = React.useState<string>('');
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const [submitting, setSubmitting] = React.useState<boolean>(false);
@@ -99,7 +98,7 @@ export const CreditCard: React.FC<Props> = (props) => {
       });
   };
 
-  const hasCreditCardOnFile = Boolean(data?.data[0].data.last_four);
+  const hasCreditCardOnFile = Boolean(lastFour);
   const paymentTooLow = +usd < +minimumPayment;
 
   return (
@@ -115,11 +114,11 @@ export const CreditCard: React.FC<Props> = (props) => {
             <Grid container direction="row" wrap="nowrap" alignItems="center">
               <Grid item className={classes.cardSection}>
                 <Typography className={classes.cardText}>
-                  Card ending in {data?.data[0].data.last_four}
+                  Card ending in {lastFour}
                 </Typography>
-                {Boolean(data?.data[0].data.expiry) && (
+                {Boolean(expiry) && (
                   <Typography className={classes.cardText}>
-                    Expires {data?.data[0].data.expiry}
+                    Expires {expiry}
                   </Typography>
                 )}
               </Grid>
