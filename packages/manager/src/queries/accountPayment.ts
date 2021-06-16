@@ -42,11 +42,6 @@ const getAllPaymentMethodsRequest = (passedParams: any = {}) =>
 export const getCreditCard = (paymentMethods: PaymentMethod[] | undefined) => {
   return paymentMethods?.find(
     (paymentMethod) =>
-      (paymentMethod.is_default === true ||
-        // 'is_default' will return a boolean, but still returns a number
-        ((paymentMethod.is_default as unknown) as number) == 1) &&
-      (paymentMethod.type === 'credit_card' ||
-        // @ts-expect-error 'method' was renamed to 'type', but API still returns method
-        paymentMethod.method === 'credit_card')
+      paymentMethod.is_default === true && paymentMethod.type === 'credit_card'
   );
 };
