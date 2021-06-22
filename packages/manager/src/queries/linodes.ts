@@ -29,9 +29,6 @@ export const useLinodesQuery = (
   );
 };
 
-/** Use with care; originally added to request all Linodes in a given region for IP sharing and transfer */
-export const queryKeyAll = 'linodes-all';
-
 const getAllLinodesRequest = (passedParams: any = {}, passedFilter: any = {}) =>
   getAll<Linode>((params, filter) =>
     getLinodes({ ...params, ...passedParams }, { ...filter, ...passedFilter })
@@ -46,7 +43,7 @@ export const useAllLinodesQuery = (
   enabled: boolean = true
 ) => {
   return useQuery<LinodeData, APIError[]>(
-    [queryKeyAll, params, filter],
+    [queryKey + '-all', params, filter],
     () => getAllLinodesRequest(params, filter),
     { ...queryPresets.longLived, enabled }
   );
