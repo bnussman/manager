@@ -1,5 +1,9 @@
 import { Linode, getLinodes } from '@linode/api-v4/lib/linodes';
-import { APIError } from '@linode/api-v4/lib/types';
+import {
+  APIError,
+  APIFilter,
+  PaginationParams,
+} from '@linode/api-v4/lib/types';
 import { useQuery } from 'react-query';
 import { getAll } from 'src/utilities/getAll';
 import { listToItemsByID, queryPresets } from './base';
@@ -18,8 +22,8 @@ interface LinodeData {
 }
 
 export const useLinodesQuery = (
-  params: any = {},
-  filter: any = {},
+  params?: PaginationParams,
+  filter?: APIFilter,
   enabled: boolean = true
 ) => {
   return useQuery<LinodeData, APIError[]>(
@@ -29,7 +33,10 @@ export const useLinodesQuery = (
   );
 };
 
-const getAllLinodesRequest = (passedParams: any = {}, passedFilter: any = {}) =>
+const getAllLinodesRequest = (
+  passedParams?: PaginationParams,
+  passedFilter?: APIFilter
+) =>
   getAll<Linode>((params, filter) =>
     getLinodes({ ...params, ...passedParams }, { ...filter, ...passedFilter })
   )().then((data) => ({
@@ -38,8 +45,8 @@ const getAllLinodesRequest = (passedParams: any = {}, passedFilter: any = {}) =>
   }));
 
 export const useAllLinodesQuery = (
-  params: any = {},
-  filter: any = {},
+  params?: PaginationParams,
+  filter?: APIFilter,
   enabled: boolean = true
 ) => {
   return useQuery<LinodeData, APIError[]>(

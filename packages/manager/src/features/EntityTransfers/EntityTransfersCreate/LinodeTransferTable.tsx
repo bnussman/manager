@@ -11,6 +11,7 @@ import { Entity, TransferEntity } from './transferReducer';
 import TransferTable from './TransferTable';
 import { useLinodesQuery } from 'src/queries/linodes';
 import { usePagination } from 'src/hooks/usePagination';
+import { APIFilter } from '@linode/api-v4/lib/types';
 
 interface Props {
   selectedLinodes: TransferEntity;
@@ -117,7 +118,7 @@ const LinodeRow: React.FC<RowProps> = (props) => {
   );
 };
 
-export const generateLinodeXFilter = (searchText: string) => {
+export const generateLinodeXFilter = (searchText: string): APIFilter => {
   if (searchText === '') {
     return {};
   }

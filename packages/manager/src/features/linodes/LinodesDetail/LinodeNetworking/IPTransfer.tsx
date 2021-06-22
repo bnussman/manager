@@ -152,7 +152,7 @@ const LinodeNetworkingIPTransferPanel: React.FC<CombinedProps> = (props) => {
     {},
     {
       region: linodeRegion,
-      label: { '+contains': searchText ? searchText : undefined },
+      ...(searchText ? { label: { '+contains': searchText } } : {}),
     },
     open // only run the query if the modal is open
   );
