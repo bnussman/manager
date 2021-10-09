@@ -24,6 +24,7 @@ import loadDevTools from './dev-tools/load';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { queryClient } from './queries/base';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const Lish = React.lazy(() => import('src/features/Lish'));
 const App = React.lazy(() => import('./App'));
@@ -49,30 +50,42 @@ const renderLish = () => (
 );
 
 const renderApp = (props: RouteComponentProps) => (
-  <QueryClientProvider client={queryClient}>
-    <SplashScreen />
-    <LinodeThemeWrapper>
-      {(toggle) => (
-        <SnackBar
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          maxSnack={3}
-          autoHideDuration={4000}
-          data-qa-toast
-          hideIconVariant={true}
-        >
-          <App
-            toggleTheme={toggle}
-            location={props.location}
-            history={props.history}
-          />
-        </SnackBar>
-      )}
-    </LinodeThemeWrapper>
-    <ReactQueryDevtools
-      initialIsOpen={false}
-      toggleButtonProps={{ style: { marginLeft: '3em' } }}
-    />
-  </QueryClientProvider>
+  <PayPalScriptProvider
+    options={{
+      'client-id':
+        'AXrQzrp1Fwa5VQwDv9uQZ6mySQZpvrozT92ezyYh-QbKTIpiqACbfxjI-RF1ueXkUQGKapgIQFZ5Iehk',
+      intent: 'tokenize',
+      currency: 'USD',
+      vault: true,
+      debug: true,
+      commit: false,
+    }}
+  >
+    <QueryClientProvider client={queryClient}>
+      <SplashScreen />
+      <LinodeThemeWrapper>
+        {(toggle) => (
+          <SnackBar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            maxSnack={3}
+            autoHideDuration={4000}
+            data-qa-toast
+            hideIconVariant={true}
+          >
+            <App
+              toggleTheme={toggle}
+              location={props.location}
+              history={props.history}
+            />
+          </SnackBar>
+        )}
+      </LinodeThemeWrapper>
+      <ReactQueryDevtools
+        initialIsOpen={false}
+        toggleButtonProps={{ style: { marginLeft: '3em' } }}
+      />
+    </QueryClientProvider>
+  </PayPalScriptProvider>
 );
 
 const renderCancel = () => (

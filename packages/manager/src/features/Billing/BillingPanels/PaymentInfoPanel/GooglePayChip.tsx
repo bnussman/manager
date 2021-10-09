@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     border: 0,
     padding: 0,
-    marginRight: -8,
     backgroundColor: 'transparent',
     cursor: 'pointer',
     '&:hover': {
