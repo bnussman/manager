@@ -288,9 +288,10 @@ module.exports = {
     // Perform type checking and linting in a separate process to speed up compilation
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      memoryLimit: 4096,
-      tsconfig: paths.appTsConfig,
-      eslint: paths.appEsLintConfig,
+      typescript: {
+        memoryLimit: 4096,
+        tsconfig: paths.appTsConfig,
+      },
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -315,16 +316,6 @@ module.exports = {
       openAnalyzer: false,
     }),
   ],
-  // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
-
   // Utilize webpack performance budgets that will fail the build if the assets
   // exceed the configured size.
   // See https://webpack.js.org/configuration/performance/

@@ -90,6 +90,11 @@ module.exports = {
     },
   },
   resolve: {
+    fallback: {
+      stream: 'stream-browserify',
+      crypto: 'crypto-browserify',
+      Buffer: 'buffer/',
+    },
     // This allows you to set a fallback for where Webpack should look for modules.
     // We placed these paths second because we want `node_modules` to "win"
     // if there are any conflicts. This matches Node resolution mechanism.
@@ -212,17 +217,6 @@ module.exports = {
               },
               {
                 loader: require.resolve('postcss-loader'),
-                options: {
-                  // Necessary for external CSS imports to work
-                  // https://github.com/facebookincubator/create-react-app/issues/2677
-                  ident: 'postcss',
-                  plugins: () => [
-                    require('postcss-flexbugs-fixes'),
-                    autoprefixer({
-                      flexbox: 'no-2009',
-                    }),
-                  ],
-                },
               },
             ],
           },
@@ -236,7 +230,7 @@ module.exports = {
             // it's runtime that would otherwise processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.js$/, /\.mjs$/, /\.html$/, /\.json$/],
+            exclude: [/\.cjs$/, /\.js$/, /\.mjs$/, /\.html$/, /\.json$/],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
@@ -249,6 +243,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -279,10 +276,10 @@ module.exports = {
     // Perform type checking and linting in a separate process to speed up compilation
     new ForkTsCheckerWebpackPlugin({
       async: true,
-      memoryLimit: 4096,
-      watch: paths.appSrc,
-      tsconfig: paths.appTsConfig,
-      eslint: paths.appEsLintConfig,
+      typescript: {
+        memoryLimit: 4096,
+        tsconfig: paths.appTsConfig,
+      },
     }),
     new CircularDependencyPlugin({
       // exclude detection of files based on a RegExp
@@ -296,15 +293,6 @@ module.exports = {
       cwd: paths.appSrc,
     }),
   ],
-  // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
   // Turn off performance hints during development because we don't do any
   // splitting or minification in interest of speed. These warnings become
   // cumbersome.
