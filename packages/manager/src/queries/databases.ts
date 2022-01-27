@@ -135,7 +135,9 @@ export const useDatabaseCredentialsQuery = (
 export const useDatabaseCredentialsMutation = (engine: Engine, id: number) =>
   useMutation<{}, APIError[]>(() => resetDatabaseCredentials(engine, id), {
     onSuccess: () => {
-      queryClient.invalidateQueries(`${queryKey}-credentials`);
+      // queryClient.invalidateQueries(`${queryKey}-credentials`);
+      queryClient.invalidateQueries([`${queryKey}-credentials`, id]);
+      queryClient.removeQueries([`${queryKey}-credentials`, id]);
     },
   });
 
