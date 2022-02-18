@@ -22,7 +22,6 @@
  * ```
  */
 
-import { Location } from 'history';
 import * as React from 'react';
 import { Prompt as ReactRouterPrompt, useHistory } from 'react-router-dom';
 
@@ -110,7 +109,7 @@ const Prompt: React.FC<CombinedProps> = (props) => {
 
   return (
     <>
-      <ReactRouterPrompt when={props.when} message={handleNavigation} />
+      <ReactRouterPrompt when={props.when} message={handleNavigation as any} />
       {props.children({ isModalOpen, handleCancel, handleConfirm })}
     </>
   );

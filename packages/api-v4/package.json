@@ -32,10 +32,10 @@
   "scripts": {
     "start": "concurrently \"tsc -w\" \"babel src --watch --out-dir lib --extensions '.ts,.tsx'\" -n 'tsc,babel' -k",
     "build": "tsc && babel src --out-dir lib --extensions '.ts,.tsx' && webpack",
-    "build:node": "yarn build --config webpack.node.config.js",
+    "build:node": "pnpm build --config webpack.node.config.js",
     "test": "jest --config jestconfig.json",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "lint": "yarn run eslint . --quiet --ext .js,.ts,.tsx",
+    "lint": "pnpm run eslint . --quiet --ext .js,.ts,.tsx",
     "typecheck": "tsc --noEmit true --emitDeclarationOnly false",
     "precommit": "lint-staged"
   },

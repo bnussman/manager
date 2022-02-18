@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { LocationDescriptor } from 'history';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export interface CrumbOverridesProps {
   position: number;
-  linkTo?: LocationDescriptor;
+  linkTo?: any;
   label?: string;
   noCap?: boolean;
 }

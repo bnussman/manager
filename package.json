@@ -3,38 +3,36 @@
   "private": true,
   "license": "Apache-2.0",
   "devDependencies": {
-    "husky": "^3.0.1",
-    "patch-package": "^6.1.0",
+    "concurrently": "^4.1.1",
+    "husky": "^3.1.0",
+    "patch-package": "^6.4.7",
     "postinstall": "^0.6.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.6"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn workspaces run precommit"
+      "pre-commit": "pnpm workspaces run precommit"
     }
   },
   "scripts": {
-    "lint": "yarn run eslint . --quiet --ext .js,.ts,.tsx",
-    "cost-of-modules": "yarn global add cost-of-modules && cost-of-modules --less --no-install --include-dev",
-    "install:all": "yarn install --frozen-lockfile",
-    "upgrade:sdk": "yarn workspace @linode/api-v4 version --no-git-tag-version --no-commit-hooks && yarn workspace linode-manager upgrade @linode/api-v4",
-    "postinstall": "yarn workspaces run postinstall && patch-package",
-    "build:sdk": "yarn workspace @linode/api-v4 build",
-    "build:validation": "yarn workspace @linode/validation build",
-    "build": "yarn build:validation && yarn build:sdk && yarn workspace linode-manager build",
-    "build:analyze": "yarn build --bundle-analyze",
-    "up": "yarn install:all && yarn build:validation && yarn build:sdk && yarn start:all",
-    "start:all": "concurrently \"yarn workspace @linode/api-v4 start\" \"yarn workspace linode-manager start\"",
+    "lint": "pnpm run eslint . --quiet --ext .js,.ts,.tsx",
+    "install:all": "pnpm install --frozen-lockfile",
+    "upgrade:sdk": "pnpm workspace @linode/api-v4 version --no-git-tag-version --no-commit-hooks && pnpm workspace linode-manager upgrade @linode/api-v4",
+    "postinstall": "pnpm run postinstall --filter linode-manager && patch-package",
+    "build:sdk": "pnpm run build --filter @linode/api-v4",
+    "build:validation": "pnpm run build --filter @linode/validation",
+    "build": "pnpm build:validation && pnpm build:sdk && pnpm run build --filter linode-manager",
+    "dev": "pnpm install:all && pnpm build:validation && pnpm build:sdk && pnpm start:all",
+    "start:all": "concurrently -n api-v4,manager -c blue,green \"pnpm run start --filter @linode/api-v4\" \"pnpm run start --filter linode-manager\"",
     "clean": "rm -rf node_modules && rm -rf packages/@linode/api-v4/node_modules && rm -rf packages/manager/node_modules && rm -rf packages/@linode/validation/node_modules",
-    "test": "yarn workspace linode-manager test --maxWorkers=4",
-    "selenium:install": "yarn workspace linode-manager selenium:install",
-    "storybook": "yarn workspace linode-manager storybook",
-    "storybook:e2e": "yarn workspace linode-manager storybook:e2e",
-    "storybook:debug": "yarn storybook:e2e --color --debug",
-    "cy:run": "yarn workspace linode-manager cy:run",
-    "cy:e2e": "yarn workspace linode-manager cy:e2e",
-    "cy:debug": "yarn workspace linode-manager cy:debug",
-    "cy:rec-snap": "yarn workspace linode-manager cy:rec-snap"
+    "test": "pnpm run --filter linode-manager --maxWorkers=4",
+    "storybook": "pnpm workspace linode-manager storybook",
+    "storybook:e2e": "pnpm workspace linode-manager storybook:e2e",
+    "storybook:debug": "pnpm storybook:e2e --color --debug",
+    "cy:run": "pnpm run cy:run linode-manager",
+    "cy:e2e": "pnpm run cy:e2e --filter linode-manager",
+    "cy:debug": "pnpm run cy:debug --filter linode-manager",
+    "cy:rec-snap": "pnpm run cy:rec-snap --filter linode-manager"
   },
   "resolutions": {
     "handlebars": "^4.4.3",
@@ -54,11 +52,6 @@
     "lodash": "^4.17.21",
     "glob-parent": "^5.1.2",
     "browserslist": "^4.16.5"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
   },
   "version": "0.0.0"
 }

@@ -1,6 +1,6 @@
 import { APIError } from '@linode/api-v4/lib/types';
 import * as React from 'react';
-import v4 from 'uuid';
+import { v4 } from 'uuid';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
 import ActionsPanel from 'src/components/ActionsPanel';
 import Button from 'src/components/Button';
