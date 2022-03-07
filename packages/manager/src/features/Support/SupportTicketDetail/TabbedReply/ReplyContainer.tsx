@@ -2,8 +2,8 @@ import {
   createReply,
   SupportReply,
   uploadAttachment,
-} from '@linode/api-v4/lib/support';
-import { APIError } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { lensPath, set } from 'ramda';
 import * as React from 'react';
 import { compose } from 'recompose';

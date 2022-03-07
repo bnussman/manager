@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "umd",
-    "emitDeclarationOnly": true,
-    "declaration": true,
-    "outDir": "./lib",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "strict": true,
+    "module": "esnext",
     "baseUrl": ".",
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "allowJs": false,
+    "strict": true,
     "noUnusedLocals": true,
-    "forceConsistentCasingInFileNames": true,
-    "declarationMap": true,
+    "rootDir": ".",
+    "types": ["vite/client"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules/**/*", "**/__tests__/*"]
+  "include": [
+    "src"
+  ]
 }

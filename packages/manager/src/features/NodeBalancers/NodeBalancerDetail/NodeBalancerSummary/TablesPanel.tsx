@@ -1,7 +1,7 @@
 import {
   getNodeBalancerStats,
   NodeBalancerStats,
-} from '@linode/api-v4/lib/nodebalancers';
+} from '@linode/api-v4';
 import { pathOr } from 'ramda';
 import * as React from 'react';
 import { compose } from 'recompose';

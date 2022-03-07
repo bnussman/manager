@@ -1,6 +1,6 @@
-import { APIError } from '@linode/api-v4/lib/types';
+import { APIError } from '@linode/api-v4';
 import { QueryClient, UseMutationOptions, UseQueryOptions } from 'react-query';
-import { isEmpty } from '@linode/api-v4/lib/request';
+import { isEmpty } from '@linode/api-v4';
 
 // =============================================================================
 // Config

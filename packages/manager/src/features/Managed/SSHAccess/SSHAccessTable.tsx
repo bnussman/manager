@@ -1,7 +1,7 @@
 import {
   getLinodeSettings,
   ManagedLinodeSetting,
-} from '@linode/api-v4/lib/managed';
+} from '@linode/api-v4';
 import produce from 'immer';
 import * as React from 'react';
 import Hidden from 'src/components/core/Hidden';

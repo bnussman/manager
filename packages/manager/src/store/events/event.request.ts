@@ -2,7 +2,7 @@ import {
   Event,
   getEvents as _getEvents,
   markEventSeen,
-} from '@linode/api-v4/lib/account';
+} from '@linode/api-v4';
 import { DateTime } from 'luxon';
 import { ISO_DATETIME_NO_TZ_FORMAT } from 'src/constants';
 import { generatePollingFilter } from 'src/utilities/requestFilters';

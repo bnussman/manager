@@ -3,8 +3,8 @@ import {
   listGrants,
   Profile,
   updateProfile,
-} from '@linode/api-v4/lib/profile';
-import { APIError } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { useMutation, useQuery, UseQueryResult } from 'react-query';
 import { Grants } from '../../../api-v4/lib';
 import { queryClient, queryPresets } from './base';

@@ -2,7 +2,7 @@ import {
   ACLType,
   getBucketAccess,
   updateBucketAccess,
-} from '@linode/api-v4/lib/object-storage';
+} from '@linode/api-v4';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import CopyTooltip from 'src/components/CopyTooltip';

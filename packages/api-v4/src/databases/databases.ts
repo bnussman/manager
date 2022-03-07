@@ -1,7 +1,7 @@
 import {
   createDatabaseSchema,
   updateDatabaseSchema,
-} from '@linode/validation/lib/databases.schema';
+} from '@linode/validation';
 import { BETA_API_ROOT as API_ROOT } from 'src/constants';
 import Request, {
   setData,

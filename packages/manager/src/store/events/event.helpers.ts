@@ -3,7 +3,7 @@ import {
   Event,
   EventAction,
   EventStatus,
-} from '@linode/api-v4/lib/account';
+} from '@linode/api-v4';
 import { parseAPIDate } from 'src/utilities/date';
 import { compose, equals, findIndex, omit, take, update } from 'ramda';
 import updateRight from 'src/utilities/updateRight';

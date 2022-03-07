@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ObjectStorageKey } from '@linode/api-v4/lib/object-storage';
+import { ObjectStorageKey } from '@linode/api-v4';
 import CopyTooltip from 'src/components/CopyTooltip';
 import { makeStyles, Theme } from 'src/components/core/styles';
 import TableBody from 'src/components/core/TableBody';
@@ -13,7 +13,7 @@ import TableRowError from 'src/components/TableRowError';
 import TableRowLoading from 'src/components/TableRowLoading';
 import AccessKeyMenu from './AccessKeyMenu';
 import { OpenAccessDrawer } from './types';
-import { APIError } from '@linode/api-v4/lib/types';
+import { APIError } from '@linode/api-v4';
 
 const useStyles = makeStyles((theme: Theme) => ({
   labelCell: {

@@ -2,7 +2,7 @@ import {
   Account,
   ActivePromotion,
   NetworkUtilization,
-} from '@linode/api-v4/lib/account/types';
+} from '@linode/api-v4';
 import * as Factory from 'factory.ts';
 
 export const promoFactory = Factory.Sync.makeFactory<ActivePromotion>({

@@ -10,7 +10,7 @@ import { matchPath, useHistory, useParams } from 'react-router-dom';
 import { DocumentTitleSegment } from 'src/components/DocumentTitle';
 import { useDatabaseQuery, useDatabaseTypesQuery } from 'src/queries/databases';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
-import { Engine } from '@linode/api-v4/lib/databases/types';
+import { Engine } from '@linode/api-v4';
 
 const DatabaseSummary = React.lazy(() => import('./DatabaseSummary'));
 const DatabaseBackups = React.lazy(() => import('./DatabaseBackups'));

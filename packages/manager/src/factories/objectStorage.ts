@@ -3,7 +3,7 @@ import {
   ObjectStorageBucket,
   ObjectStorageCluster,
   ObjectStorageObject,
-} from '@linode/api-v4/lib/object-storage/types';
+} from '@linode/api-v4';
 
 export const objectStorageBucketFactory = Factory.Sync.makeFactory<ObjectStorageBucket>(
   {

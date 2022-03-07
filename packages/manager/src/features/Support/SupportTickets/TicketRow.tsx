@@ -1,4 +1,4 @@
-import { SupportTicket } from '@linode/api-v4/lib/support';
+import { SupportTicket } from '@linode/api-v4';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Hidden from 'src/components/core/Hidden';

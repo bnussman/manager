@@ -28,5 +28,3 @@ export const getRegions = () =>
  */
 export const getRegion = (regionID: string) =>
   Request<Region>(setURL(`${API_ROOT}/regions/${regionID}`), setMethod('GET'));
-
-export { Region };

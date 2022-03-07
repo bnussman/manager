@@ -1,8 +1,8 @@
 import {
   KubeNodePoolResponse,
   PoolNodeRequest,
-} from '@linode/api-v4/lib/kubernetes';
-import { APIError } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import actionCreatorFactory from 'typescript-fsa';
 
 import { EntityError } from 'src/store/types';

@@ -3,8 +3,8 @@ import {
   Stats,
   getLinodeStatsByDate,
   getLinodeTransferByDate,
-} from '@linode/api-v4/lib/linodes';
-import { NetworkTransfer } from '@linode/api-v4/lib/account';
+} from '@linode/api-v4';
+import { NetworkTransfer } from '@linode/api-v4';
 
 interface UseLinodeNetworkInfoOptions {
   year: string;

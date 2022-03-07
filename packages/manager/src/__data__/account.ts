@@ -2,7 +2,7 @@ import {
   Account,
   AccountSettings,
   ActivePromotion,
-} from '@linode/api-v4/lib/account';
+} from '@linode/api-v4';
 
 export const activePromotions: ActivePromotion[] = [
   {

@@ -2,8 +2,8 @@ import {
   getLinodeIPs,
   Linode,
   LinodeIPsResponse,
-} from '@linode/api-v4/lib/linodes';
-import { getIPs, IPAddress, IPRange } from '@linode/api-v4/lib/networking';
+} from '@linode/api-v4';
+import { getIPs, IPAddress, IPRange } from '@linode/api-v4';
 import { IPv6, parse as parseIP } from 'ipaddr.js';
 import { isEmpty, pathOr, uniq, uniqBy } from 'ramda';
 import * as React from 'react';

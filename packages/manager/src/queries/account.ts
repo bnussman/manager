@@ -2,8 +2,8 @@ import {
   Account,
   getAccountInfo,
   updateAccountInfo,
-} from '@linode/api-v4/lib/account';
-import { APIError } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { useMutation, useQuery } from 'react-query';
 import { mutationHandlers, queryPresets } from './base';
 

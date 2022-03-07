@@ -1,5 +1,5 @@
-import { Linode, getLinodes } from '@linode/api-v4/lib/linodes';
-import { APIError } from '@linode/api-v4/lib/types';
+import { Linode, getLinodes } from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { useQuery } from 'react-query';
 import { getAll } from 'src/utilities/getAll';
 import { listToItemsByID, queryPresets } from './base';

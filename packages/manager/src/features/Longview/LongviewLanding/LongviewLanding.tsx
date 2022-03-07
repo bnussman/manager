@@ -1,11 +1,11 @@
 import {
   getActiveLongviewPlan,
   getLongviewSubscriptions,
-} from '@linode/api-v4/lib/longview';
+} from '@linode/api-v4';
 import {
   ActiveLongviewPlan,
   LongviewSubscription,
-} from '@linode/api-v4/lib/longview/types';
+} from '@linode/api-v4';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 import { isEmpty } from 'ramda';
 import * as React from 'react';

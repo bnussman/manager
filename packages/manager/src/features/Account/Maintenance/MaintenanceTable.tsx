@@ -9,7 +9,7 @@ import TableRow from 'src/components/TableRow/TableRow';
 import PaginationFooter from 'src/components/PaginationFooter';
 import TableRowLoading from 'src/components/TableRowLoading';
 import TableRowError from 'src/components/TableRowError';
-import { AccountMaintenance } from '@linode/api-v4/lib/account/types';
+import { AccountMaintenance } from '@linode/api-v4';
 import usePagination from 'src/hooks/usePagination';
 import TableSortCell from 'src/components/TableSortCell/TableSortCell';
 import TableRowEmptyState from 'src/components/TableRowEmptyState';

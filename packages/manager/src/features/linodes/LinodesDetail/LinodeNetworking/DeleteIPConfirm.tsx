@@ -2,7 +2,7 @@ import {
   Linode,
   removeIPAddress,
   removeIPv6Range,
-} from '@linode/api-v4/lib/linodes';
+} from '@linode/api-v4';
 import * as React from 'react';
 import { compose } from 'recompose';
 

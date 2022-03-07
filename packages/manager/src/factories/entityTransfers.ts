@@ -2,7 +2,7 @@ import * as Factory from 'factory.ts';
 import {
   EntityTransfer,
   TransferEntities,
-} from '@linode/api-v4/lib/entity-transfers/types';
+} from '@linode/api-v4';
 import { v4 } from 'uuid';
 import { DateTime } from 'luxon';
 

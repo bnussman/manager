@@ -14,7 +14,7 @@ import Skeleton from 'src/components/core/Skeleton';
 import { useOrder } from 'src/hooks/useOrder';
 import { useParams } from 'react-router-dom';
 import { RestoreFromBackupDialog } from './RestoreFromBackupDialog';
-import { DatabaseBackup, Engine } from '@linode/api-v4/lib/databases';
+import { DatabaseBackup, Engine } from '@linode/api-v4';
 import {
   useDatabaseBackupsQuery,
   useDatabaseQuery,

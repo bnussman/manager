@@ -1,4 +1,4 @@
-import { Event } from '@linode/api-v4/lib/account/types';
+import { Event } from '@linode/api-v4';
 import { Duration } from 'luxon';
 import * as React from 'react';
 import BarPercent from 'src/components/BarPercent';

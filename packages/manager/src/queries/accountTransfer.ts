@@ -1,8 +1,8 @@
 import {
   getNetworkUtilization,
   NetworkUtilization,
-} from '@linode/api-v4/lib/account';
-import { APIError } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { useQuery } from 'react-query';
 import { queryPresets } from './base';
 

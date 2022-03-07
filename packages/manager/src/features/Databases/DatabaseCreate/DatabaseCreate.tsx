@@ -6,9 +6,9 @@ import {
   DatabaseType,
   Engine,
   ReplicationType,
-} from '@linode/api-v4/lib/databases/types';
-import { APIError } from '@linode/api-v4/lib/types';
-import { createDatabaseSchema } from '@linode/validation/lib/databases.schema';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
+import { createDatabaseSchema } from '@linode/validation';
 import { useFormik } from 'formik';
 import { groupBy } from 'ramda';
 import * as React from 'react';

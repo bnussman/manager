@@ -10,6 +10,8 @@ export * from './kubernetes';
 
 export * from './linodes';
 
+export * from './nodebalancers';
+
 export * from './longview';
 
 export * from './managed';
@@ -31,5 +33,7 @@ export * from './tags';
 export * from './vlans';
 
 export * from './volumes';
+
+export * from './types';
 
 export { baseRequest, setToken } from './request';

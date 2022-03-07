@@ -2,7 +2,7 @@ import {
   ACLType,
   getBucketAccess,
   updateBucketAccess,
-} from '@linode/api-v4/lib/object-storage';
+} from '@linode/api-v4';
 import * as React from 'react';
 import Paper from 'src/components/core/Paper';
 import { makeStyles, Theme } from 'src/components/core/styles';

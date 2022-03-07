@@ -2,7 +2,7 @@ import {
   ACLType,
   getObjectACL,
   updateObjectACL,
-} from '@linode/api-v4/lib/object-storage';
+} from '@linode/api-v4';
 import * as React from 'react';
 import CopyTooltip from 'src/components/CopyTooltip';
 import Divider from 'src/components/core/Divider';

@@ -1,11 +1,11 @@
-import { Image } from '@linode/api-v4/lib/images';
+import { Image } from '@linode/api-v4';
 import {
   CreateLinodeRequest,
   Linode,
   LinodeTypeClass,
-} from '@linode/api-v4/lib/linodes';
-import { StackScript, UserDefinedField } from '@linode/api-v4/lib/stackscripts';
-import { APIError } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { StackScript, UserDefinedField } from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { ExtendedRegion } from 'src/components/EnhancedSelect/variants/RegionSelect';
 import { Tag } from 'src/components/TagsInput';
 import { State as userSSHKeysProps } from 'src/features/linodes/userSSHKeyHoc';

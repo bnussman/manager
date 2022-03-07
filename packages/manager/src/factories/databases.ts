@@ -9,7 +9,7 @@ import {
   DatabaseType,
   DatabaseEngine,
   ReplicationType,
-} from '@linode/api-v4/lib/databases/types';
+} from '@linode/api-v4';
 
 // These are not all of the possible statuses, but these are some common ones.
 const possibleStatuses: DatabaseStatus[] = [

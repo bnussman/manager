@@ -16,7 +16,7 @@ import {
   DatabaseInstance,
   DatabaseStatus,
   Engine,
-} from '@linode/api-v4/lib/databases/types';
+} from '@linode/api-v4';
 
 export const databaseStatusMap: Record<DatabaseStatus, Status> = {
   provisioning: 'other',

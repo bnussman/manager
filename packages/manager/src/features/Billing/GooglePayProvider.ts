@@ -2,8 +2,8 @@ import braintree, { GooglePayment } from 'braintree-web';
 import {
   addPaymentMethod,
   makePayment,
-} from '@linode/api-v4/lib/account/payments';
-import { APIWarning } from '@linode/api-v4/lib/types';
+} from '@linode/api-v4';
+import { APIWarning } from '@linode/api-v4';
 import { VariantType } from 'notistack';
 import { queryClient } from 'src/queries/base';
 import { queryKey as accountPaymentKey } from 'src/queries/accountPayment';

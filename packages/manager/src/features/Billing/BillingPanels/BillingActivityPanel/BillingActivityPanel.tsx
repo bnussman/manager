@@ -4,7 +4,7 @@ import {
   Invoice,
   InvoiceItem,
   Payment,
-} from '@linode/api-v4/lib/account';
+} from '@linode/api-v4';
 import { DateTime } from 'luxon';
 import { makeStyles, Theme } from 'src/components/core/styles';
 import TableBody from 'src/components/core/TableBody';

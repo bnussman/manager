@@ -4,9 +4,9 @@ import {
   Linode,
   LinodeType,
   Stats,
-} from '@linode/api-v4/lib/linodes';
-import { APIError } from '@linode/api-v4/lib/types';
-import { Volume } from '@linode/api-v4/lib/volumes';
+} from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
+import { Volume } from '@linode/api-v4';
 import { DateTime } from 'luxon';
 import { pathOr } from 'ramda';
 import * as React from 'react';

@@ -1,5 +1,5 @@
-import { baseRequest } from '@linode/api-v4/lib/request';
-import { APIError } from '@linode/api-v4/lib/types';
+import { baseRequest } from '@linode/api-v4';
+import { APIError } from '@linode/api-v4';
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as React from 'react';
 import { AccountActivationError } from 'src/components/AccountActivation';

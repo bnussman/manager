@@ -1,4 +1,4 @@
-import { updateProfileSchema } from '@linode/validation/lib/profile.schema';
+import { updateProfileSchema } from '@linode/validation';
 import { API_ROOT } from 'src/constants';
 import { Grants } from '../account';
 import Request, {
