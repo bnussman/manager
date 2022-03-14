@@ -5,6 +5,8 @@ import { paymentMethodFactory } from 'src/factories';
 import { renderWithTheme } from 'src/utilities/testHelpers';
 import { makeDefaultPaymentMethod } from '@linode/api-v4/lib';
 import * as React from 'react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { PAYPAL_CLIENT_ID } from 'src/constants';
 
 jest.mock('@linode/api-v4/lib', () => {
   return {
@@ -12,9 +14,17 @@ jest.mock('@linode/api-v4/lib', () => {
   };
 });
 
+const renderWithPayPalProvider = (jsx: JSX.Element) => {
+  return renderWithTheme(
+    <PayPalScriptProvider options={{ 'client-id': PAYPAL_CLIENT_ID }}>
+      {jsx}
+    </PayPalScriptProvider>
+  );
+};
+
 describe('Payment Method Row', () => {
   it('Displays "Default" chip if payment method is set as default', () => {
-    const { getByText } = renderWithTheme(
+    const { getByText } = renderWithPayPalProvider(
       <PaymentMethodRow
         paymentMethod={paymentMethodFactory.build({ is_default: true })}
         onDelete={jest.fn()}
@@ -25,7 +35,7 @@ describe('Payment Method Row', () => {
   });
 
   it('Does not display "Default" chip if payment method is not set as default', () => {
-    const { queryByText } = renderWithTheme(
+    const { queryByText } = renderWithPayPalProvider(
       <PaymentMethodRow
         paymentMethod={paymentMethodFactory.build({ is_default: false })}
         onDelete={jest.fn()}
@@ -59,7 +69,7 @@ describe('Payment Method Row', () => {
       type: 'google_pay',
     });
 
-    const { getByLabelText } = renderWithTheme(
+    const { getByLabelText } = renderWithPayPalProvider(
       <>
         <PaymentMethodRow
           paymentMethod={paymentMethodCreditCard}
@@ -88,7 +98,7 @@ describe('Payment Method Row', () => {
       type: 'paypal',
     });
 
-    const { getByLabelText } = renderWithTheme(
+    const { getByLabelText } = renderWithPayPalProvider(
       <PaymentMethodRow
         paymentMethod={payPalPaymentMethod}
         onDelete={jest.fn()}
@@ -99,7 +109,7 @@ describe('Payment Method Row', () => {
   });
 
   it('Disables "Make Default" and "Delete" actions if payment method is set as default', () => {
-    const { getByText } = renderWithTheme(
+    const { getByText } = renderWithPayPalProvider(
       <PaymentMethodRow
         paymentMethod={paymentMethodFactory.build({ is_default: true })}
         onDelete={jest.fn()}
@@ -115,7 +125,7 @@ describe('Payment Method Row', () => {
   it('Calls `onDelete` callback when "Delete" action is clicked', () => {
     const mockFunction = jest.fn();
 
-    const { getByText, getByLabelText } = renderWithTheme(
+    const { getByText, getByLabelText } = renderWithPayPalProvider(
       <PaymentMethodRow
         paymentMethod={paymentMethodFactory.build({ is_default: false })}
         onDelete={mockFunction}
@@ -141,7 +151,7 @@ describe('Payment Method Row', () => {
       },
     });
 
-    const { getByText, getByLabelText } = renderWithTheme(
+    const { getByText, getByLabelText } = renderWithPayPalProvider(
       <PaymentMethodRow paymentMethod={paymentMethod} onDelete={jest.fn()} />
     );
 
@@ -162,7 +172,7 @@ describe('Payment Method Row', () => {
      * The <BillingSummary /> component is responsible for rendering the "Make a Payment" drawer,
      * and is required for this test. We may want to consider decoupling these components in the future.
      */
-    const { getByText, getByLabelText, getByTestId } = renderWithTheme(
+    const { getByText, getByLabelText, getByTestId } = renderWithPayPalProvider(
       <>
         <BillingSummary
           paymentMethods={[paymentMethod]}
