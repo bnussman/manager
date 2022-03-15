@@ -6,7 +6,9 @@ import { makeStyles, Theme } from 'src/components/core/styles';
 import Typography from 'src/components/core/Typography';
 import { Link } from 'src/components/Link';
 import Notice from 'src/components/Notice';
+import useFlags from 'src/hooks/useFlags';
 import { useAccount } from 'src/queries/account';
+import { isFeatureEnabled } from 'src/utilities/accountCapabilities';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -50,10 +52,13 @@ type CombinedProps = Props;
 
 const CautionNotice: React.FC<CombinedProps> = (props) => {
   const classes = useStyles();
+  const { vlans } = useFlags();
   const { data: account } = useAccount();
-
-  const capabilities = account?.capabilities ?? [];
-  const vlansCapability = capabilities.includes('Vlans');
+  const vlansEnabled = isFeatureEnabled(
+    'Vlans',
+    Boolean(vlans),
+    account?.capabilities ?? []
+  );
 
   const amountOfAttachedVolumes = props.linodeVolumes.length;
 
@@ -79,7 +84,7 @@ const CautionNotice: React.FC<CombinedProps> = (props) => {
             Configure Your Linode for Reverse DNS (rDNS).
           </Link>
         </li>
-        {vlansCapability && (
+        {vlansEnabled && (
           <li>
             Any attached VLANs will be inaccessible if the destination region
             does not support VLANs.{` `}

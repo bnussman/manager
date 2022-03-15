@@ -3,6 +3,7 @@ import CheckoutBar from 'src/components/CheckoutBar';
 import Divider from 'src/components/core/Divider';
 import Notice from 'src/components/Notice';
 import renderGuard from 'src/components/RenderGuard';
+import useFlags from 'src/hooks/useFlags';
 import EUAgreementCheckbox from 'src/features/Account/Agreements/EUAgreementCheckbox';
 import { ExtendedType } from 'src/store/linodeType/linodeType.reducer';
 import { isEURegion } from 'src/utilities/formatRegion';
@@ -44,6 +45,8 @@ export const KubeCheckoutBar: React.FC<Props> = (props) => {
     toggleHasAgreed,
   } = props;
 
+  const flags = useFlags();
+
   // Show a warning if any of the pools have fewer than 3 nodes
   const showWarning = pools.some((thisPool) => thisPool.count < 3);
 
@@ -61,10 +64,11 @@ export const KubeCheckoutBar: React.FC<Props> = (props) => {
     needsAPool || (!hasAgreed && showGDPRCheckbox)
   );
 
-  const capabilities = account?.capabilities ?? [];
-  const showHighAvalibility =
+  const showHighAvalibility = Boolean(
     HIGH_AVAILABILITY_PRICE !== undefined &&
-    capabilities.includes('LKE HA Control Planes');
+      flags.lkeHighAvailability &&
+      account?.capabilities.includes('LKE HA Control Planes')
+  );
 
   return (
     <CheckoutBar

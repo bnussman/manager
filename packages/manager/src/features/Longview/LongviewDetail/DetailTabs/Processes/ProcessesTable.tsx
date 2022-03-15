@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     wordBreak: 'break-all',
     alignItems: 'center',
   },
-  tableModifier: {
+  cmrTableModifier: {
     '& tbody': {
       transition: theme.transitions.create(['opacity']),
     },
@@ -87,7 +87,7 @@ export const ProcessesTable: React.FC<CombinedProps> = (props) => {
           // This prop is necessary to show the "ActiveCaret", and we only
           // want it on large viewports.
           noOverflow={width >= 1280}
-          className={classes.tableModifier}
+          className={classes.cmrTableModifier}
         >
           <TableHead>
             <TableRow>
@@ -195,6 +195,7 @@ const renderLoadingErrorData = (
 export interface ProcessTableRowProps extends ExtendedProcess {
   isSelected: boolean;
   setSelectedProcess: (process: Process) => void;
+  cmrFlag?: boolean;
 }
 
 export const ProcessesTableRow: React.FC<ProcessTableRowProps> = React.memo(

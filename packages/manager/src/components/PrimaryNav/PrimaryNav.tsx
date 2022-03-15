@@ -106,6 +106,12 @@ export const PrimaryNav: React.FC<Props> = (props) => {
     !clustersError &&
     !bucketsError;
 
+  const showFirewalls = isFeatureEnabled(
+    'Cloud Firewall',
+    Boolean(flags.firewalls),
+    account?.capabilities ?? []
+  );
+
   const showDatabases = isFeatureEnabled(
     'Managed Databases',
     Boolean(flags.databases),
@@ -146,6 +152,7 @@ export const PrimaryNav: React.FC<Props> = (props) => {
           icon: <NodeBalancer />,
         },
         {
+          hide: !showFirewalls,
           display: 'Firewalls',
           href: '/firewalls',
           icon: <Firewall />,
@@ -224,6 +231,7 @@ export const PrimaryNav: React.FC<Props> = (props) => {
       ],
     ],
     [
+      showFirewalls,
       showDatabases,
       _isManagedAccount,
       domains.loading,

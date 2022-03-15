@@ -10,6 +10,7 @@ import SafeTabPanel from 'src/components/SafeTabPanel';
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import TabLinkList from 'src/components/TabLinkList';
 import TaxBanner from 'src/components/TaxBanner';
+import useFlags from 'src/hooks/useFlags';
 import { getGrantData, useProfile } from 'src/queries/profile';
 
 const Billing = React.lazy(() => import('src/features/Billing'));
@@ -23,6 +24,7 @@ const MaintenanceLanding = React.lazy(
 );
 
 const AccountLanding: React.FC = () => {
+  const flags = useFlags();
   const history = useHistory();
   const location = useLocation();
   const { data: profile } = useProfile();
@@ -121,9 +123,11 @@ const AccountLanding: React.FC = () => {
             <SafeTabPanel index={++idx}>
               <Users isRestrictedUser={profile?.restricted || false} />
             </SafeTabPanel>
-            <SafeTabPanel index={++idx}>
-              <EntityTransfersLanding />
-            </SafeTabPanel>
+            {flags.entityTransfers ? (
+              <SafeTabPanel index={++idx}>
+                <EntityTransfersLanding />
+              </SafeTabPanel>
+            ) : null}
             <SafeTabPanel index={++idx}>
               <MaintenanceLanding />
             </SafeTabPanel>

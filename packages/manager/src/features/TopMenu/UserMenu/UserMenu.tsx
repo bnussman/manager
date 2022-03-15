@@ -16,6 +16,7 @@ import { makeStyles, Theme } from 'src/components/core/styles';
 import Tooltip from 'src/components/core/Tooltip';
 import Typography from 'src/components/core/Typography';
 import useAccountManagement from 'src/hooks/useAccountManagement';
+import useFlags from 'src/hooks/useFlags';
 import { useGrants } from 'src/queries/profile';
 import { getGravatarUrl } from 'src/utilities/gravatar';
 
@@ -241,6 +242,7 @@ const profileLinks: MenuLink[] = [
 
 export const UserMenu: React.FC<{}> = () => {
   const classes = useStyles();
+  const flags = useFlags();
 
   const [gravatarURL, setGravatarURL] = React.useState<string | undefined>();
   const [gravatarLoading, setGravatarLoading] = React.useState<boolean>(false);
@@ -272,7 +274,7 @@ export const UserMenu: React.FC<{}> = () => {
       {
         display: 'Service Transfers',
         href: '/account/service-transfers',
-        hide: _isRestrictedUser,
+        hide: _isRestrictedUser || !flags.entityTransfers,
       },
       {
         display: 'Maintenance',
@@ -285,7 +287,7 @@ export const UserMenu: React.FC<{}> = () => {
         hide: !hasFullAccountAccess,
       },
     ],
-    [hasFullAccountAccess, _isRestrictedUser]
+    [hasFullAccountAccess, _isRestrictedUser, flags]
   );
 
   const userEmail = profile?.email;

@@ -8,6 +8,7 @@ import Button from 'src/components/Button';
 import Typography from 'src/components/core/Typography';
 import Grid from 'src/components/Grid';
 import NodeTable from './NodeTable';
+import useFlags from 'src/hooks/useFlags';
 
 interface Props {
   poolId: number;
@@ -56,6 +57,7 @@ const NodePool: React.FC<Props> = (props) => {
   } = props;
 
   const classes = useStyles();
+  const flags = useFlags();
 
   return (
     <>
@@ -69,20 +71,22 @@ const NodePool: React.FC<Props> = (props) => {
           <Typography variant="h2">{typeLabel}</Typography>
         </Grid>
         <Grid item className={classes.container}>
-          <div className={classes.container}>
-            <Button
-              className={`${autoscaler.enabled ? classes.button : ''}`}
-              buttonType="secondary"
-              onClick={() => openAutoscalePoolDialog(poolId)}
-            >
-              Autoscale Pool
-            </Button>
-            {autoscaler.enabled ? (
-              <Typography className={classes.text}>
-                {`(Min ${autoscaler.min} / Max ${autoscaler.max})`}
-              </Typography>
-            ) : null}
-          </div>
+          {flags.autoscaler ? (
+            <div className={classes.container}>
+              <Button
+                className={`${autoscaler.enabled ? classes.button : ''}`}
+                buttonType="secondary"
+                onClick={() => openAutoscalePoolDialog(poolId)}
+              >
+                Autoscale Pool
+              </Button>
+              {autoscaler.enabled ? (
+                <Typography className={classes.text}>
+                  {`(Min ${autoscaler.min} / Max ${autoscaler.max})`}
+                </Typography>
+              ) : null}
+            </div>
+          ) : null}
           <Button
             buttonType="secondary"
             onClick={() => handleClickResize(poolId)}

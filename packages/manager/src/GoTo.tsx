@@ -3,6 +3,8 @@ import { makeStyles, Theme } from 'src/components/core/styles';
 import EnhancedSelect, { Item } from 'src/components/EnhancedSelect/Select';
 import MUIDialog from 'src/components/core/Dialog';
 import { useHistory } from 'react-router-dom';
+import useFlags from './hooks/useFlags';
+import { isFeatureEnabled } from './utilities/accountCapabilities';
 import useAccountManagement from './hooks/useAccountManagement';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -59,7 +61,18 @@ type CombinedProps = Props;
 const GoTo: React.FC<CombinedProps> = (props) => {
   const classes = useStyles();
   const routerHistory = useHistory();
-  const { _isManagedAccount, _hasAccountAccess } = useAccountManagement();
+  const flags = useFlags();
+  const {
+    _isManagedAccount,
+    _hasAccountAccess,
+    account,
+  } = useAccountManagement();
+
+  const showFirewalls = isFeatureEnabled(
+    'Cloud Firewall',
+    Boolean(flags.firewalls),
+    account?.capabilities ?? []
+  );
 
   const onSelect = (item: Item<string>) => {
     routerHistory.push(item.value);
@@ -87,6 +100,7 @@ const GoTo: React.FC<CombinedProps> = (props) => {
         href: '/nodebalancers',
       },
       {
+        hide: !showFirewalls,
         display: 'Firewalls',
         href: '/firewalls',
       },
@@ -135,7 +149,7 @@ const GoTo: React.FC<CombinedProps> = (props) => {
         href: '/profile/display',
       },
     ],
-    [_hasAccountAccess, _isManagedAccount]
+    [showFirewalls, _hasAccountAccess, _isManagedAccount]
   );
 
   const options: Item[] = React.useMemo(

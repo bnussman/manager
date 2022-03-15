@@ -349,7 +349,8 @@ export class ListLinodes extends React.Component<CombinedProps, State> {
                             {this.props.LandingHeader ? (
                               this.props.LandingHeader
                             ) : (
-                              <div>
+                              // @todo: remove inline style when we switch over to CMR
+                              <div style={{ marginTop: -8 }}>
                                 <LandingHeader
                                   title="Linodes"
                                   entity="Linode"

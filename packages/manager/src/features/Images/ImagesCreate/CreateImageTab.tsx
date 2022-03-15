@@ -19,11 +19,13 @@ import withImages, {
 import { resetEventsPolling } from 'src/eventsPolling';
 import DiskSelect from 'src/features/linodes/DiskSelect';
 import LinodeSelect from 'src/features/linodes/LinodeSelect';
+import useFlags from 'src/hooks/useFlags';
 import { useGrants, useProfile } from 'src/queries/profile';
 import calculateCostFromUnitPrice from 'src/utilities/calculateCostFromUnitPrice';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
 import getAPIErrorFor from 'src/utilities/getAPIErrorFor';
 import { convertStorageUnit } from 'src/utilities/unitConversions';
+import ImagesPricingCopy from './ImagesPricingCopy';
 
 const useStyles = makeStyles((theme: Theme) => ({
   helperText: {
@@ -168,6 +170,8 @@ export const CreateImageTab: React.FC<Props & ImagesDispatch> = (props) => {
 
   const requirementsMet = checkRequirements();
 
+  const flags = useFlags();
+  const isImagePricingEnabled = Boolean(flags.imagesPriceInfo);
   const selectedDiskData: Disk | undefined = disks.find(
     (d) => `${d.id}` === selectedDisk
   );
@@ -206,6 +210,7 @@ export const CreateImageTab: React.FC<Props & ImagesDispatch> = (props) => {
         <Notice error text={generalError} data-qa-notice />
       ) : null}
       {notice ? <Notice success text={notice} data-qa-notice /> : null}
+      <ImagesPricingCopy type="captureImage" />
       <LinodeSelect
         selectedLinode={selectedLinode?.id || null}
         linodeError={linodeError}
@@ -235,12 +240,14 @@ export const CreateImageTab: React.FC<Props & ImagesDispatch> = (props) => {
           disabled={!canCreateImage}
           data-qa-disk-select
         />
-        <Typography className={classes.helperText} variant="body1">
-          {`Estimated: ${calculateCostFromUnitPrice(
-            0.1,
-            selectedDiskSizeInGB
-          )}/month`}
-        </Typography>
+        {isImagePricingEnabled ? (
+          <Typography className={classes.helperText} variant="body1">
+            {`Estimated: ${calculateCostFromUnitPrice(
+              0.1,
+              selectedDiskSizeInGB
+            )}/month`}
+          </Typography>
+        ) : null}
         <Typography className={classes.helperText} variant="body1">
           Linode Images cannot be created if you are using raw disks or disks
           that have been formatted using custom filesystems.
