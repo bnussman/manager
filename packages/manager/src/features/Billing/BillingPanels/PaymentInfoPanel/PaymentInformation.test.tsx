@@ -57,10 +57,10 @@ describe('Payment Info Panel', () => {
       <PaymentInformation loading={false} paymentMethods={paymentMethods} />
     );
 
-    paymentMethods.forEach((paymentMethod) => {
+    for (const paymentMethod of paymentMethods) {
       expect(
         getByTestId(`payment-method-row-${paymentMethod.id}`)
       ).toBeVisible();
-    });
+    }
   });
 });
