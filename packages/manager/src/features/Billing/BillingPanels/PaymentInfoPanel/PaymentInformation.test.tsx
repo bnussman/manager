@@ -3,6 +3,16 @@ import PaymentInformation from './PaymentInformation';
 import { paymentMethodFactory } from 'src/factories';
 import { renderWithTheme } from 'src/utilities/testHelpers';
 import * as React from 'react';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { PAYPAL_CLIENT_ID } from 'src/constants';
+
+const renderWithPayPalProvider = (jsx: JSX.Element) => {
+  return renderWithTheme(
+    <PayPalScriptProvider options={{ 'client-id': PAYPAL_CLIENT_ID }}>
+      {jsx}
+    </PayPalScriptProvider>
+  );
+};
 
 /*
  * Build payment method list that includes 1 valid and default payment method,
@@ -22,7 +32,7 @@ const paymentMethods = [
 
 describe('Payment Info Panel', () => {
   it('Shows loading animation when loading', () => {
-    const { getByLabelText } = renderWithTheme(
+    const { getByLabelText } = renderWithPayPalProvider(
       <PaymentInformation loading={true} paymentMethods={paymentMethods} />
     );
 
@@ -30,7 +40,7 @@ describe('Payment Info Panel', () => {
   });
 
   it('Opens "Add Payment Method" drawer when "Add Payment Method" is clicked', () => {
-    const { getByTestId } = renderWithTheme(
+    const { getByTestId } = renderWithPayPalProvider(
       <PaymentInformation loading={false} paymentMethods={paymentMethods} />
     );
 
@@ -43,7 +53,7 @@ describe('Payment Info Panel', () => {
   });
 
   it('Lists all payment methods', () => {
-    const { getByTestId } = renderWithTheme(
+    const { getByTestId } = renderWithPayPalProvider(
       <PaymentInformation loading={false} paymentMethods={paymentMethods} />
     );
 
