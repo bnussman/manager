@@ -1,13 +1,10 @@
 import { adaptV4Theme } from '@mui/material/styles';
-import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
-import createTheme from './themeFactory';
-
-const breakpoints = createBreakpoints({});
+import createTheme, { breakpoints } from './themeFactory';
 
 export const light = () => {
   const options: any = { name: 'lightTheme' };
 
-  return createTheme(adaptV4Theme(options));
+  return createTheme(options);
 };
 
 const textColors = {
@@ -190,6 +187,9 @@ const darkThemeOptions = {
     primary: primaryColors,
     text: {
       primary: primaryColors.text,
+    },
+    background: {
+      paper: '#2e3238',
     },
   },
   typography: {
