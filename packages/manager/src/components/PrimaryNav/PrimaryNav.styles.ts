@@ -106,8 +106,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   divider: {
-    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-    color: '#222',
+    borderColor: 'rgba(34, 34, 34, 0.30)',
   },
   chip: {
     backgroundColor: theme.palette.primary.main,
