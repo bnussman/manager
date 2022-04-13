@@ -62,7 +62,7 @@
     "markdown-it": "^12.3.2",
     "md5": "^2.2.1",
     "memoizee": "^0.4.14",
-    "notistack": "^0.9.7",
+    "notistack": "^2.0.4",
     "novnc-node": "^0.5.3",
     "patch-package": "^6.1.0",
     "qrcode.react": "^0.8.0",
