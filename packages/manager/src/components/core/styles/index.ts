@@ -9,8 +9,7 @@ import {
 /* tslint:disable-next-line:no-empty-interface */
 export interface SvgIconProps extends _SVGIconProps {}
 
-/* tslint:disable-next-line:no-empty-interface */
-export interface WithStyles<P extends string> extends _WithStyles<P> {}
+export type WithStyles<P extends string> = _WithStyles<P>;
 
 /* tslint:disable-next-line:no-empty-interface */
 export interface WithTheme extends _WithTheme {}
