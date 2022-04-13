@@ -1,9 +1,10 @@
 import { mergeDeepRight } from 'ramda';
-import { adaptV4Theme } from '@mui/material/styles';
-import createBreakpoints from 'src/components/core/styles/createBreakpoints';
-import createMuiTheme, {
+import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
+import {
+  adaptV4Theme,
+  createTheme,
   DeprecatedThemeOptions,
-} from 'src/components/core/styles/createMuiTheme';
+} from '@mui/material/styles';
 
 /**
  * Augmenting Palette and Palette Options
@@ -1385,17 +1386,19 @@ const themeDefaults: ThemeDefaults = () => {
 };
 
 export default (options: DeprecatedThemeOptions) =>
-  createMuiTheme(
-    adaptV4Theme(mergeDeepRight(themeDefaults(), {
-      breakpoints: {
-        values: {
-          xs: 0,
-          sm: 600,
-          md: 960,
-          lg: 1280,
-          xl: 1920,
+  createTheme(
+    adaptV4Theme(
+      mergeDeepRight(themeDefaults(), {
+        breakpoints: {
+          values: {
+            xs: 0,
+            sm: 600,
+            md: 960,
+            lg: 1280,
+            xl: 1920,
+          },
         },
-      },
-      ...options,
-    }))
+        ...options,
+      })
+    )
   );

@@ -21,14 +21,13 @@ export {
   createGenerateClassName,
   createStyles,
   jssPreset,
-  ThemeProvider,
   makeStyles,
   withStyles,
   withTheme,
   useTheme,
 } from '@mui/styles';
 
-export { createMuiTheme } from '@mui/material/styles';
+export { createTheme, ThemeProvider } from '@mui/material';
 
 interface Theme extends _Theme {
   name: string;

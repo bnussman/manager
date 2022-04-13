@@ -1,5 +1,5 @@
-import createBreakpoints from 'src/components/core/styles/createBreakpoints';
 import { adaptV4Theme } from '@mui/material/styles';
+import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 import createTheme from './themeFactory';
 
 const breakpoints = createBreakpoints({});
