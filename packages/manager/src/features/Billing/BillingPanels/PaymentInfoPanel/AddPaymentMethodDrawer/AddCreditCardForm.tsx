@@ -12,7 +12,7 @@ import { queryClient } from 'src/queries/base';
 import { CreditCardSchema } from '@linode/validation';
 import { handleAPIErrors } from 'src/utilities/formikErrorUtils';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
-import { InputBaseComponentProps } from '@material-ui/core/InputBase/InputBase';
+import { InputBaseComponentProps } from '@mui/material/InputBase/InputBase';
 import { parseExpiryYear } from 'src/utilities/creditCard';
 
 const useStyles = makeStyles((theme: Theme) => ({

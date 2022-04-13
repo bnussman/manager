@@ -37,13 +37,13 @@ type ClassNames =
 const styles = (theme: Theme) =>
   createStyles({
     title: {
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         marginLeft: theme.spacing(),
       },
     },
     openTicketButton: {
       minWidth: 150,
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         marginRight: theme.spacing(),
       },
     },
@@ -80,7 +80,7 @@ const styles = (theme: Theme) =>
         background: 'none !important',
         boxShadow: `inset 0 -1px 0 ${theme.color.border2}`,
         marginBottom: theme.spacing(),
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
           overflowX: 'auto',
           padding: 1,
         },

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1),
   },
   panelBody: {
-    padding: `${theme.spacing(2)}px 0 0`,
+    padding: `${theme.spacing(2)} 0 0`,
   },
   tabsWrapper: {
     position: 'relative',
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       boxShadow: `inset 0 -1px 0 ${theme.borderColors.divider}`,
       marginTop: 22,
       marginBottom: theme.spacing(3),
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         overflowX: 'auto',
         padding: 1,
       },

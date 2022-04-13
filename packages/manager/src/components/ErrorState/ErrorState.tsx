@@ -1,4 +1,4 @@
-import ErrorOutline from '@material-ui/icons/ErrorOutline';
+import ErrorOutline from '@mui/icons-material/ErrorOutline';
 import classNames from 'classnames';
 import * as React from 'react';
 import {

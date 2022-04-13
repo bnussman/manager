@@ -85,14 +85,14 @@ const DatabaseLanding: React.FC = () => {
               Cluster Label
             </TableSortCell>
             <TableCell>Status</TableCell>
-            <Hidden xsDown>
+            <Hidden smDown>
               <TableCell>Configuration</TableCell>
             </Hidden>
             <TableCell>Engine</TableCell>
-            <Hidden smDown>
+            <Hidden mdDown>
               <TableCell>Region</TableCell>
             </Hidden>
-            <Hidden mdDown>
+            <Hidden lgDown>
               <TableSortCell
                 active={orderBy === 'created'}
                 direction={order}

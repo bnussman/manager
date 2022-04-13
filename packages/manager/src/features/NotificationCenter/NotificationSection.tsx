@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import CircleProgress from 'src/components/CircleProgress';
 import { makeStyles, Theme } from 'src/components/core/styles';
 import Typography from 'src/components/core/Typography';
@@ -109,50 +109,48 @@ export const NotificationSection: React.FC<Props> = (props) => {
     );
   };
 
-  return (
-    <>
-      <Hidden smDown>
-        <div className={classes.root}>
-          <div className={classes.content}>
-            <div className={classes.header}>
-              <Typography variant="h3">{header}</Typography>
-              {showMoreTarget && (
-                <Typography variant="body1">
-                  <strong>
-                    <Link
-                      to={showMoreTarget}
-                      onClick={() => {
-                        if (onClose) {
-                          onClose();
-                        }
-                      }}
-                    >
-                      {showMoreText ?? 'View history'}
-                    </Link>
-                  </strong>
-                </Typography>
-              )}
-            </div>
-            <ContentBody
-              loading={_loading}
-              count={_count}
-              content={content}
-              header={header}
-              emptyMessage={emptyMessage}
-            />
+  return <>
+    <Hidden mdDown>
+      <div className={classes.root}>
+        <div className={classes.content}>
+          <div className={classes.header}>
+            <Typography variant="h3">{header}</Typography>
+            {showMoreTarget && (
+              <Typography variant="body1">
+                <strong>
+                  <Link
+                    to={showMoreTarget}
+                    onClick={() => {
+                      if (onClose) {
+                        onClose();
+                      }
+                    }}
+                  >
+                    {showMoreText ?? 'View history'}
+                  </Link>
+                </strong>
+              </Typography>
+            )}
           </div>
+          <ContentBody
+            loading={_loading}
+            count={_count}
+            content={content}
+            header={header}
+            emptyMessage={emptyMessage}
+          />
         </div>
-      </Hidden>
+      </div>
+    </Hidden>
 
-      <Hidden mdUp>
-        <ExtendedAccordion
-          heading={header}
-          headingNumberCount={content.length > 0 ? content.length : undefined}
-          renderMainContent={innerContent}
-        />
-      </Hidden>
-    </>
-  );
+    <Hidden mdUp>
+      <ExtendedAccordion
+        heading={header}
+        headingNumberCount={content.length > 0 ? content.length : undefined}
+        renderMainContent={innerContent}
+      />
+    </Hidden>
+  </>;
 };
 
 // =============================================================================

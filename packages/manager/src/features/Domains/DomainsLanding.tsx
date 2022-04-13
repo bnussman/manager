@@ -50,7 +50,7 @@ const DOMAIN_CREATE_ROUTE = '/domains/create';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     // Adds spacing when the docs button wraps to make it look a little less awkward
-    [theme.breakpoints.down(380)]: {
+    [theme.breakpoints.down(undefined)]: {
       '& .docsButton': {
         paddingBottom: theme.spacing(2),
       },
@@ -119,9 +119,9 @@ export const getHeaders = (
 export const DomainsLanding: React.FC<CombinedProps> = (props) => {
   const classes = useStyles();
   const theme = useTheme<Theme>();
-  const matchesXsDown = useMediaQuery(theme.breakpoints.down('xs'));
-  const matchesSmDown = useMediaQuery(theme.breakpoints.down('sm'));
-  const matchesMdDown = useMediaQuery(theme.breakpoints.down('md'));
+  const matchesXsDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const matchesSmDown = useMediaQuery(theme.breakpoints.down('md'));
+  const matchesMdDown = useMediaQuery(theme.breakpoints.down('lg'));
 
   const {
     domainForEditing,

@@ -56,7 +56,7 @@ export const DomainActionMenu: React.FC<CombinedProps> = (props) => {
   } = props;
 
   const theme = useTheme<Theme>();
-  const matchesSmDown = useMediaQuery(theme.breakpoints.down('sm'));
+  const matchesSmDown = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleRemove = () => {
     onRemove(domain, id);

@@ -1,2 +1,2 @@
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
+import { createBreakpoints } from '@mui/material/styles';
 export default createBreakpoints;

@@ -46,7 +46,7 @@ const styles = (theme: Theme) =>
       paddingLeft: theme.spacing(1),
     },
     bottomLegend: {
-      margin: `${theme.spacing(2)}px ${theme.spacing(1)}px ${theme.spacing(
+      margin: `${theme.spacing(2)} ${theme.spacing(1)} ${theme.spacing(
         1
       )}px`,
       padding: 10,
@@ -59,11 +59,11 @@ const styles = (theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       [theme.breakpoints.up('md')]: {
-        margin: `${theme.spacing(2)}px 0`,
+        margin: `${theme.spacing(2)} 0`,
       },
     },
     title: {
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         marginLeft: theme.spacing(),
       },
     },

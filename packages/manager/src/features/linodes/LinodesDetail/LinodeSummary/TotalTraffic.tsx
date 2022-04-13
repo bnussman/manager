@@ -15,7 +15,7 @@ const styles = (theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       marginTop: theme.spacing(3),
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         alignItems: 'flex-start',
       },

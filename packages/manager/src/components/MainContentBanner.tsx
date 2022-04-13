@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Close from '@material-ui/icons/Close';
+import Close from '@mui/icons-material/Close';
 import { makeStyles, Theme } from 'src/components/core/styles';
 import Grid from 'src/components/core/Grid';
 import Typography from 'src/components/core/Typography';

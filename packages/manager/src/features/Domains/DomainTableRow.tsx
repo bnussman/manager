@@ -66,7 +66,7 @@ const DomainTableRow: React.FC<CombinedProps> = (props) => {
         <StatusIcon status={domainStatusToIconStatus(status)} />
         {humanizeDomainStatus(status)}
       </TableCell>
-      <Hidden xsDown>
+      <Hidden smDown>
         <TableCell data-qa-domain-type>{getDomainDisplayType(type)}</TableCell>
         <TableCell data-qa-domain-lastmodified>
           <DateTimeDisplay value={updated} />

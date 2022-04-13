@@ -236,10 +236,8 @@ class LinodeCreateContainer extends React.PureComponent<CombinedProps, State> {
       // Filter out any apps that we don't have info for
       .then((response) =>
         response.data.filter((script) => {
-          return (
-            !script.label.match(/helpers/i) &&
-            allowedApps.includes(String(script.id))
-          );
+          return !script.label.match(/helpers/i) &&
+          allowedApps.includes(String(script.id));
         })
       )
       .then((response) =>

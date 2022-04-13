@@ -70,7 +70,7 @@ const AdaLink: React.FC<CombinedProps> = (props) => {
       onClick={handleAdaInit}
       className={classes.root}
       aria-label="Get help with ADA bot"
-    >
+      size="large">
       <AdaIcon />
     </IconButton>
   ) : (

@@ -1,4 +1,4 @@
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import {
   Menu as ReachMenu,
   MenuButton,
@@ -26,7 +26,7 @@ interface MenuLink {
 
 const useStyles = makeStyles((theme: Theme) => ({
   menu: {
-    transform: `translateY(${theme.spacing(1)}px)`,
+    transform: `translateY(${theme.spacing(1)})`,
   },
   button: {
     borderRadius: 30,
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: 30,
       height: 30,
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('lg')]: {
       width: '28px',
       height: '28px',
     },
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     transition: theme.transitions.create(['color']),
     whiteSpace: 'nowrap',
     // Hides username as soon as things start to scroll
-    [theme.breakpoints.down(1345)]: {
+    [theme.breakpoints.down(undefined)]: {
       ...theme.visually.hidden,
     },
   },
@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up('sm')]: {
       paddingLeft: 12,
     },
-    [theme.breakpoints.down(360)]: {
+    [theme.breakpoints.down(undefined)]: {
       paddingLeft: 3,
     },
     '&[data-reach-menu-button]': {
@@ -120,11 +120,11 @@ const useStyles = makeStyles((theme: Theme) => ({
           transform: 'rotate(180deg)',
         },
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         paddingRight: 12,
         paddingLeft: 12,
       },
-      [theme.breakpoints.down(360)]: {
+      [theme.breakpoints.down(undefined)]: {
         paddingRight: theme.spacing(),
         paddingLeft: theme.spacing(),
       },
@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       position: 'absolute',
       top: 50,
       zIndex: 3000,
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         left: 0,
       },
     },
@@ -150,7 +150,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: 26,
     marginTop: 2,
     marginLeft: 2,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },
@@ -314,7 +314,7 @@ export const UserMenu: React.FC<{}> = () => {
             data-testid="nav-group-profile"
           >
             <GravatarIcon username={userName} className={classes.userWrapper} />
-            <Hidden smDown>
+            <Hidden mdDown>
               <Typography className={classes.inlineUserName}>
                 {userName}
               </Typography>

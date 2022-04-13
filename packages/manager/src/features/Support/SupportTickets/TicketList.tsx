@@ -87,83 +87,81 @@ export class TicketList extends React.Component<CombinedProps, {}> {
 
     const isActive = (label: string) => label === orderBy;
 
-    return (
-      <>
-        <Table aria-label="List of Tickets">
-          <TableHead>
-            <TableRow>
+    return <>
+      <Table aria-label="List of Tickets">
+        <TableHead>
+          <TableRow>
+            <TableSortCell
+              label="summary"
+              direction={order}
+              handleClick={handleOrderChange}
+              active={isActive('summary')}
+              data-qa-support-subject-header
+              noWrap
+            >
+              Subject
+            </TableSortCell>
+            <Hidden mdDown>
               <TableSortCell
-                label="summary"
+                label="id"
                 direction={order}
                 handleClick={handleOrderChange}
-                active={isActive('summary')}
-                data-qa-support-subject-header
+                active={isActive('id')}
+                data-qa-support-id-header
                 noWrap
               >
-                Subject
+                Ticket ID
               </TableSortCell>
-              <Hidden smDown>
-                <TableSortCell
-                  label="id"
-                  direction={order}
-                  handleClick={handleOrderChange}
-                  active={isActive('id')}
-                  data-qa-support-id-header
-                  noWrap
-                >
-                  Ticket ID
-                </TableSortCell>
-              </Hidden>
-              <TableCell data-qa-support-regarding-header>Regarding</TableCell>
-              <Hidden xsDown>
-                <TableSortCell
-                  label="opened"
-                  direction={order}
-                  handleClick={handleOrderChange}
-                  active={isActive('opened')}
-                  data-qa-support-date-header
-                  noWrap
-                >
-                  Date Created
-                </TableSortCell>
-                <TableSortCell
-                  label="updated"
-                  direction={order}
-                  handleClick={handleOrderChange}
-                  active={isActive('updated')}
-                  data-qa-support-updated-header
-                  noWrap
-                >
-                  Last Updated
-                </TableSortCell>
-              </Hidden>
-              <Hidden smDown>
-                <TableSortCell
-                  label="updated_by"
-                  direction={order}
-                  handleClick={handleOrderChange}
-                  active={isActive('updated_by')}
-                  data-qa-support-updated-by-header
-                  noWrap
-                >
-                  Updated By
-                </TableSortCell>
-              </Hidden>
-            </TableRow>
-          </TableHead>
-          <TableBody>{this.renderContent()}</TableBody>
-        </Table>
-        <PaginationFooter
-          count={count}
-          page={page}
-          pageSize={pageSize}
-          handlePageChange={this.props.handlePageChange}
-          handleSizeChange={this.props.handlePageSizeChange}
-          eventCategory="ticket list"
-          padded
-        />
-      </>
-    );
+            </Hidden>
+            <TableCell data-qa-support-regarding-header>Regarding</TableCell>
+            <Hidden smDown>
+              <TableSortCell
+                label="opened"
+                direction={order}
+                handleClick={handleOrderChange}
+                active={isActive('opened')}
+                data-qa-support-date-header
+                noWrap
+              >
+                Date Created
+              </TableSortCell>
+              <TableSortCell
+                label="updated"
+                direction={order}
+                handleClick={handleOrderChange}
+                active={isActive('updated')}
+                data-qa-support-updated-header
+                noWrap
+              >
+                Last Updated
+              </TableSortCell>
+            </Hidden>
+            <Hidden mdDown>
+              <TableSortCell
+                label="updated_by"
+                direction={order}
+                handleClick={handleOrderChange}
+                active={isActive('updated_by')}
+                data-qa-support-updated-by-header
+                noWrap
+              >
+                Updated By
+              </TableSortCell>
+            </Hidden>
+          </TableRow>
+        </TableHead>
+        <TableBody>{this.renderContent()}</TableBody>
+      </Table>
+      <PaginationFooter
+        count={count}
+        page={page}
+        pageSize={pageSize}
+        handlePageChange={this.props.handlePageChange}
+        handleSizeChange={this.props.handlePageSizeChange}
+        eventCategory="ticket list"
+        padded
+      />
+    </>;
   }
 }
 

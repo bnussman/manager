@@ -29,7 +29,7 @@ const styles = (theme: Theme) =>
   createStyles({
     flatImagePanelSelections: {
       marginTop: theme.spacing(2),
-      padding: `${theme.spacing(1)}px 0`,
+      padding: `${theme.spacing(1)} 0`,
     },
     panel: {
       marginBottom: theme.spacing(3),
