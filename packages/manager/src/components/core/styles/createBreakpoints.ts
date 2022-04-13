@@ -1,2 +1,2 @@
-import { createBreakpoints } from '@mui/material/styles';
+import createBreakpoints from '@mui/system/createTheme/createBreakpoints';
 export default createBreakpoints;
