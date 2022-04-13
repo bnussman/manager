@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
   helpIcon: {
-    marginLeft: -theme.spacing(),
+    marginLeft: `-${theme.spacing()}`,
   },
 }));
 

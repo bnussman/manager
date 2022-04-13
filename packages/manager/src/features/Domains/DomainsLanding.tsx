@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   importButton: {
-    marginLeft: -theme.spacing(),
+    marginLeft: `-${theme.spacing()}`,
     whiteSpace: 'nowrap',
   },
 }));
