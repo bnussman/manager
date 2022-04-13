@@ -50,7 +50,7 @@ const DOMAIN_CREATE_ROUTE = '/domains/create';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     // Adds spacing when the docs button wraps to make it look a little less awkward
-    [theme.breakpoints.down(undefined)]: {
+    [theme.breakpoints.down(380)]: {
       '& .docsButton': {
         paddingBottom: theme.spacing(2),
       },

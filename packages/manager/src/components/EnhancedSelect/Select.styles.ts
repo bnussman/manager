@@ -41,7 +41,7 @@ export const styles = (theme: Theme) =>
         boxShadow: 'none',
         border: `1px solid transparent`,
         backgroundColor: theme.bg.white,
-        minHeight: theme.spacing(5) - 2,
+        minHeight: `calc(${theme.spacing(5)} - 2)`,
         '&:hover': {
           border: `1px dotted #ccc`,
           cursor: 'text',
@@ -88,7 +88,7 @@ export const styles = (theme: Theme) =>
         paddingRight: 10,
       },
       '& .react-select__menu-list': {
-        padding: theme.spacing(1) / 2,
+        padding: theme.spacing(0.5),
         backgroundColor: theme.bg.white,
         height: '101%',
         overflow: 'auto',
@@ -290,7 +290,7 @@ export const styles = (theme: Theme) =>
     algoliaRoot: {
       width: '100%',
       cursor: 'pointer',
-      padding: theme.spacing(1) / 2 + 2,
+      padding: `calc(${theme.spacing(0.5)} + 2)`,
       '& em': {
         fontStyle: 'normal',
         color: theme.color.blueDTwhite,
@@ -307,12 +307,12 @@ export const styles = (theme: Theme) =>
       height: 12,
       position: 'relative',
       top: 5,
-      marginLeft: theme.spacing(1) / 2,
-      marginRight: theme.spacing(1) / 2,
+      marginLeft: theme.spacing(0.5),
+      marginRight: theme.spacing(0.5),
       color: theme.palette.primary.main,
     },
     source: {
-      marginTop: theme.spacing(1) / 4,
+      marginTop: theme.spacing(0.25),
       color: theme.color.headline,
       paddingLeft: theme.spacing(1),
       margin: 0,
@@ -357,7 +357,7 @@ export const reactSelectStyles = (theme: Theme) => ({
     boxShadow: 'none',
     border: `1px solid transparent`,
     backgroundColor: theme.bg.white,
-    minHeight: theme.spacing(5) - 2,
+    minHeight: `calc(${theme.spacing(5)} - 2)`,
     '&:hover': {
       border: `1px dotted #ccc`,
       cursor: 'text',
@@ -402,7 +402,7 @@ export const reactSelectStyles = (theme: Theme) => ({
   }),
   menuList: (base: any) => ({
     ...base,
-    padding: theme.spacing(1) / 2,
+    padding: theme.spacing(0.5),
     backgroundColor: theme.bg.white,
     minHeight: '101%',
     overflow: 'auto',

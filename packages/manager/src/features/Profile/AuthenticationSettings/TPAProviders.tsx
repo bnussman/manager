@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: 0,
     width: 'calc(100% + 24px)',
     '& .MuiGrid-item': {
-      [theme.breakpoints.down(undefined)]: {
+      [theme.breakpoints.down(1100)]: {
         flexBasis: '50%',
         maxWidth: '50%',
       },
@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.name === 'lightTheme' ? '#f5f6f7' : '#444',
     marginTop: theme.spacing(),
     minHeight: 70,
-    paddingRight: theme.spacing(3) - 4,
-    paddingLeft: theme.spacing(3) - 4,
+    paddingRight: `calc(${theme.spacing(3)} - 4)`,
+    paddingLeft: `calc(${theme.spacing(3)} - 4)`,
     width: 'calc(100% - 8px)',
     [theme.breakpoints.down('md')]: {
       marginLeft: 0,

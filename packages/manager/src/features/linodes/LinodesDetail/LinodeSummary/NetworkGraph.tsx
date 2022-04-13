@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexWrap: 'nowrap',
     margin: 0,
     padding: theme.spacing(),
-    [theme.breakpoints.down(undefined)]: {
+    [theme.breakpoints.down(1100)]: {
       flexWrap: 'wrap',
-      marginTop: -theme.spacing(2),
+      marginTop: `-${theme.spacing(2)}`,
     },
   },
   grid: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginRight: theme.spacing(2),
       },
     },
-    [theme.breakpoints.down(undefined)]: {
+    [theme.breakpoints.down(1100)]: {
       '&:first-of-type': {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),

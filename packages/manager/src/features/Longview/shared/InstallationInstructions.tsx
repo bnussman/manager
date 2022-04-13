@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         '&:before': {
           content: "'|'",
           position: 'absolute',
-          top: theme.spacing(1) - 3,
-          left: -theme.spacing(1) + 2,
+          top: `calc(${theme.spacing(1)} - 3)`,
+          left: `calc(-${theme.spacing(1)} + 2)`,
         },
       },
     },
