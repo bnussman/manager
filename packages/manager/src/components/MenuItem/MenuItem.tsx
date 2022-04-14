@@ -33,8 +33,8 @@ const styles = (theme: Theme) =>
       flexWrap: 'wrap',
       '&.hasTooltip': {
         opacity: 1,
-        paddingTop: `calc(${theme.spacing(1)} - 2)`,
-        paddingBottom: theme.spacing(1) + 2,
+        paddingTop: `calc(${theme.spacing(1)} - 2px)`,
+        paddingBottom: `calc(${theme.spacing(1)} + 2px)`,
         '&:hover, &:focus': {
           background: 'transparent',
           color: theme.palette.primary.main,

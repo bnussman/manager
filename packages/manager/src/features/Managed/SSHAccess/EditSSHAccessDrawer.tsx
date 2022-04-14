@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   helperText: {
-    marginBottom: theme.spacing(1) + 2,
+    marginBottom: `calc(${theme.spacing(1)} + 2px)`,
   },
 }));
 

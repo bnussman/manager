@@ -41,7 +41,7 @@ export const styles = (theme: Theme) =>
         boxShadow: 'none',
         border: `1px solid transparent`,
         backgroundColor: theme.bg.white,
-        minHeight: `calc(${theme.spacing(5)} - 2)`,
+        minHeight: `calc(${theme.spacing(5)} - 2px)`,
         '&:hover': {
           border: `1px dotted #ccc`,
           cursor: 'text',
@@ -290,7 +290,7 @@ export const styles = (theme: Theme) =>
     algoliaRoot: {
       width: '100%',
       cursor: 'pointer',
-      padding: `calc(${theme.spacing(0.5)} + 2)`,
+      padding: `calc(${theme.spacing(0.5)} + 2px)`,
       '& em': {
         fontStyle: 'normal',
         color: theme.color.blueDTwhite,
@@ -357,7 +357,7 @@ export const reactSelectStyles = (theme: Theme) => ({
     boxShadow: 'none',
     border: `1px solid transparent`,
     backgroundColor: theme.bg.white,
-    minHeight: `calc(${theme.spacing(5)} - 2)`,
+    minHeight: `calc(${theme.spacing(5)} - 2px)`,
     '&:hover': {
       border: `1px dotted #ccc`,
       cursor: 'text',
@@ -382,7 +382,7 @@ export const reactSelectStyles = (theme: Theme) => ({
   }),
   group: (base: any) => ({
     ...base,
-    width: `calc(100% + calc(${theme.spacing(1)} / 2))`,
+    width: `calc(100% + ${theme.spacing(0.5)})`,
     '&:last-child': {
       paddingBottom: 0,
     },

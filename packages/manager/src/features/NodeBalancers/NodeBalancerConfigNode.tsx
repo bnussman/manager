@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   statusHeader: {
     fontSize: '.9rem',
     color: theme.color.label,
-    marginTop: `calc(${theme.spacing(2)} - 4)`,
+    marginTop: `calc(${theme.spacing(2)} - 4px)`,
   },
   statusChip: {
     marginTop: theme.spacing(1),

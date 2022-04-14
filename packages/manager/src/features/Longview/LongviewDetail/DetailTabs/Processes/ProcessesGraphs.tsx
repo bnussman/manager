@@ -25,7 +25,7 @@ import { Process } from './types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    marginTop: theme.spacing(1) + 2,
+    marginTop: `calc(${theme.spacing(1)} + 2px)`,
     padding: theme.spacing(3),
   },
   graphWrap: {

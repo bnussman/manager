@@ -50,7 +50,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {},
     textWrapper: {
-      marginBottom: theme.spacing(1) + 2,
+      marginBottom: `calc(${theme.spacing(1)} + 2px)`,
     },
   });
 

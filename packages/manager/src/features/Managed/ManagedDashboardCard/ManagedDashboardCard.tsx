@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   monitorStatusOuter: {
     marginBottom: theme.spacing(1),
     [theme.breakpoints.up('lg')]: {
-      marginBottom: `calc(${theme.spacing(3)} + 2)`,
+      marginBottom: `calc(${theme.spacing(3)} + 2px)`,
     },
   },
 }));

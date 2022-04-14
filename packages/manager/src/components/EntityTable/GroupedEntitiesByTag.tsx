@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: 'auto',
     '& td': {
       // This is maintaining the spacing between groups because of how tables handle margin/padding. Adjust with care!
-      padding: `calc(${theme.spacing(2) + theme.spacing(1)} / 2) 0 ${
-        theme.spacing(1) + 2
-      }px`,
+      padding: `calc(${
+        theme.spacing(2) + theme.spacing(1)
+      } / 2) 0 calc(${theme.spacing(1)} + 2) px`,
       borderBottom: 'none',
       borderTop: 'none',
     },
