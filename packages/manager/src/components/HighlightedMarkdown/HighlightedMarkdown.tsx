@@ -9,14 +9,14 @@ import { sanitizeHTML } from 'src/utilities/sanitize-html';
 import { unsafe_MarkdownIt } from 'src/utilities/markdown';
 import sanitize from 'sanitize-html';
 // Register all languages we intend to use
-hljs.registerLanguage('apache', require('highlight.js/lib/languages/apache'));
-hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
-hljs.registerLanguage(
-  'javascript',
-  require('highlight.js/lib/languages/javascript')
-);
-hljs.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'));
-hljs.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
+// hljs.registerLanguage('apache', require('highlight.js/lib/languages/apache'));
+// hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'));
+// hljs.registerLanguage(
+//   'javascript',
+//   require('highlight.js/lib/languages/javascript')
+// );
+// hljs.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'));
+// hljs.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
