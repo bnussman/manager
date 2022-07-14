@@ -2412,7 +2412,8 @@
       "declarationMap": true,
       "composite": true,
       "rootDir": "./src",
-      "declarationDir": "../../../../../../var/folders/dv/p4vfwf3922v5lcq539p4kd340000gn/T/tmp-25537-56U3DKx1Ti0h/npm-dts",
+      "watch": true,
+      "preserveWatchOutput": true,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
