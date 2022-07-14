@@ -12,7 +12,9 @@
     "baseUrl": ".",
     "noUnusedLocals": true,
     "declarationMap": true,
+    "composite": true
   },
+  "references": [{ "path": "../validation" }],
   "include": [
     "src"
   ],

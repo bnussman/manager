@@ -9,7 +9,7 @@ import { addPaymentMethod } from '@linode/api-v4/lib';
 import { useSnackbar } from 'notistack';
 import Notice from 'src/components/Notice';
 import { queryClient } from 'src/queries/base';
-import { CreditCardSchema } from '@linode/validation';
+import { CreditCardSchema } from '@linode/validation/lib/account.schema';
 import { handleAPIErrors } from 'src/utilities/formikErrorUtils';
 import NumberFormat, { NumberFormatProps } from 'react-number-format';
 import { InputBaseComponentProps } from '@material-ui/core/InputBase/InputBase';
