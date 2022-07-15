@@ -15,6 +15,8 @@ import {
   getDomain,
   ImportZonePayload,
   importZone,
+  DomainRecord,
+  updateDomainRecord,
 } from '@linode/api-v4/lib/domains';
 
 export const queryKey = 'domains';
@@ -80,6 +82,16 @@ export const useUpdateDomainMutation = () =>
       },
     }
   );
+
+export const useUpdateDomainRecordMutation = () =>
+  useMutation<
+    DomainRecord,
+    APIError[],
+    { domainId: number; recordId: number } & Partial<DomainRecord>
+  >((data) => {
+    const { domainId, recordId, ...rest } = data;
+    return updateDomainRecord(domainId, recordId, rest);
+  });
 
 // @TODO: make this generic
 const updatePaginatedDomainsStore = (id: number, newData: Partial<Domain>) => {
