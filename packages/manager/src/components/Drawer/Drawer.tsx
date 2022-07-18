@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       justifyContent: 'flex-end',
       marginTop: theme.spacing(),
     },
+    '& form > .actionPanel': {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      marginTop: theme.spacing(),
+    },
     '& .selectionCard': {
       maxWidth: '100%',
       flexBasis: '100%',
