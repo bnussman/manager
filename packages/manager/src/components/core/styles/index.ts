@@ -45,7 +45,7 @@ interface Theme extends _Theme {
   applyLinkStyles?: any;
   applyStatusPillStyles?: any;
   applyTableHeaderStyles?: any;
-
+  spacing: (space?: number) => number;
   notificationList: any;
   status: any;
 }

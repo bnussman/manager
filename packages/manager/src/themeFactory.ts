@@ -228,7 +228,7 @@ const themeDefaults: ThemeDefaults = () => {
       'none',
       'none',
     ],
-    spacing: 8,
+    spacing: (x: number = 1) => x * 8,
     '@keyframes rotate': {
       from: {
         transform: 'rotate(0deg)',
@@ -1402,16 +1402,18 @@ const themeDefaults: ThemeDefaults = () => {
 
 export default (options: DeprecatedThemeOptions) =>
   createMuiTheme(
-    adaptV4Theme(mergeDeepRight(themeDefaults(), {
-      breakpoints: {
-        values: {
-          xs: 0,
-          sm: 600,
-          md: 960,
-          lg: 1280,
-          xl: 1920,
+    adaptV4Theme(
+      mergeDeepRight(themeDefaults(), {
+        breakpoints: {
+          values: {
+            xs: 0,
+            sm: 600,
+            md: 960,
+            lg: 1280,
+            xl: 1920,
+          },
         },
-      },
-      ...options,
-    }))
+        ...options,
+      })
+    )
   );
