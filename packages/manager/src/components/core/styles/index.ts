@@ -1,4 +1,4 @@
-import { Theme as _Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
 import { SvgIconProps as _SVGIconProps } from '@mui/material/SvgIcon';
 import {
   CSSProperties as _CSSProperties,
@@ -28,27 +28,6 @@ export {
 } from '@mui/styles';
 
 export { createTheme, ThemeProvider } from '@mui/material';
-
-interface Theme extends _Theme {
-  name: string;
-  '@keyframes rotate': any;
-  '@keyframes dash': any;
-  bg: any;
-  textColors: any;
-  borderColors: any;
-  color: any;
-  graphs: any;
-  visually: any;
-  font?: any;
-  animateCircleIcon?: any;
-  addCircleHoverEffect?: any;
-  applyLinkStyles?: any;
-  applyStatusPillStyles?: any;
-  applyTableHeaderStyles?: any;
-  spacing: (space?: number) => number;
-  notificationList: any;
-  status: any;
-}
 
 export { Theme };
 

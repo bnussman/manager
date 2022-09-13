@@ -65,7 +65,7 @@ const HelpIcon: React.FC<CombinedProps> = (props) => {
       enterTouchDelay={0}
       leaveTouchDelay={5000}
       leaveDelay={leaveDelay ? 3000 : undefined}
-      interactive={interactive}
+      disableInteractive={interactive === undefined || interactive === false}
       placement={tooltipPosition ? tooltipPosition : 'bottom'}
       classes={classes}
       onMouseEnter={onMouseEnter}

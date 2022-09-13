@@ -37,7 +37,46 @@ declare module '@mui/material/styles/createPalette' {
 /**
  * Augmenting the Theme and DeprecatedThemeOptions.
  */
-declare module '@mui/material/styles/createTheme' {
+// declare module '@mui/material/styles/createTheme' {
+//   interface Theme {
+//     name: string;
+//     '@keyframes rotate': any;
+//     '@keyframes dash': any;
+//     bg: any;
+//     textColors: any;
+//     borderColors: any;
+//     color: any;
+//     graphs: any;
+//     visually: any;
+//     font?: any;
+//     animateCircleIcon?: any;
+//     addCircleHoverEffect?: any;
+//     applyLinkStyles?: any;
+//     applyStatusPillStyles?: any;
+//     applyTableHeaderStyles?: any;
+//     spacing: (space?: number) => number;
+//     notificationList: any;
+//     status: any;
+//   }
+
+//   interface DeprecatedThemeOptions {
+//     name?: string;
+//     '@keyframes rotate'?: any;
+//     '@keyframes dash'?: any;
+//     bg?: any;
+//     color?: any;
+//     graphs?: any;
+//     visually?: any;
+//     font?: any;
+//     animateCircleIcon?: any;
+//     addCircleHoverEffect?: any;
+//     notificationList?: any;
+//     status?: any;
+//     spacing?: (space?: number) => number;
+//   }
+// }
+
+declare module '@mui/material/styles' {
   interface Theme {
     name: string;
     '@keyframes rotate': any;
@@ -54,12 +93,11 @@ declare module '@mui/material/styles/createTheme' {
     applyLinkStyles?: any;
     applyStatusPillStyles?: any;
     applyTableHeaderStyles?: any;
-
+    // spacing: (space?: number) => number;
     notificationList: any;
     status: any;
   }
-
-  interface DeprecatedThemeOptions {
+  interface ThemeOptions {
     name?: string;
     '@keyframes rotate'?: any;
     '@keyframes dash'?: any;
@@ -72,6 +110,7 @@ declare module '@mui/material/styles/createTheme' {
     addCircleHoverEffect?: any;
     notificationList?: any;
     status?: any;
+    // spacing?: (space?: number) => number;
   }
 }
 
