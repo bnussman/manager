@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(4),
     padding: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
-      height: theme.spacing() === 220,
+      height: false,
     },
   },
   gaugeContainer: {

@@ -267,7 +267,7 @@ const themeDefaults: ThemeDefaults = () => {
       'none',
       'none',
     ],
-    spacing: (x: number = 1) => x * 8,
+    spacing: 8,
     '@keyframes rotate': {
       from: {
         transform: 'rotate(0deg)',

@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'flex-end',
     paddingLeft: theme.spacing(2),
-    marginLeft: -theme.spacing(1),
+    marginLeft: `-${theme.spacing(1)}`,
     [theme.breakpoints.down('lg')]: {
-      marginTop: -theme.spacing(1),
+      marginTop: `-${theme.spacing(1)}`,
     },
     [theme.breakpoints.down('sm')]: {
       marginTop: 0,
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   statusHeader: {
     fontSize: '.9rem',
     color: theme.color.label,
-    marginTop: theme.spacing(2) - 4,
+    marginTop: theme.spacing(1.5),
   },
   statusChip: {
     marginTop: theme.spacing(1),

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   helpIcon: {
-    marginLeft: -theme.spacing(),
+    marginLeft: `-${theme.spacing()}`,
   },
 }));
 

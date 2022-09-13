@@ -22,9 +22,9 @@ import {
 const useStyles = makeStyles((theme: Theme) => ({
   smallGraph: {
     [theme.breakpoints.down('md')]: {
-      marginTop: theme.spacing(3) + 2,
+      marginTop: theme.spacing(3.25),
     },
-    marginTop: theme.spacing(6) + 3,
+    marginTop: `calc(${theme.spacing(6)} + 3px)`,
   },
 }));
 

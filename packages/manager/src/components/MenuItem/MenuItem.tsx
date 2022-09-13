@@ -33,8 +33,8 @@ const styles = (theme: Theme) =>
       flexWrap: 'wrap',
       '&.hasTooltip': {
         opacity: 1,
-        paddingTop: theme.spacing(1) - 2,
-        paddingBottom: theme.spacing(1) + 2,
+        paddingTop: `calc(${theme.spacing(1)} - 2px)`,
+        paddingBottom: `calc(${theme.spacing(1)} + 2px)`,
         '&:hover, &:focus': {
           background: 'transparent',
           color: theme.palette.primary.main,
@@ -112,7 +112,8 @@ class WrapperMenuItem extends React.Component<CombinedProps> {
               className={classes.helpButton}
               onClick={handleClick}
               data-qa-tooltip-icon
-              size="large">
+              size="large"
+            >
               <HelpOutline className={classes.helpIcon} />
             </IconButton>
           )}

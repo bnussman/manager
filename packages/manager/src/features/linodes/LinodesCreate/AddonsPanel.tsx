@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   caption: {
     marginTop: -8,
-    paddingLeft: theme.spacing(2) + 18, // 34,
+    paddingLeft: theme.spacing(4.25), // 34,
     [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing(4) + 18, // 50
+      paddingLeft: theme.spacing(6.25), // 50
     },
   },
 }));

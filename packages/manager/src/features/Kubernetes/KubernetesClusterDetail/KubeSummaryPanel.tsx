@@ -42,9 +42,9 @@ import KubernetesDialog from './KubernetesDialog';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     marginBottom: theme.spacing(3),
-    padding: `calc(${theme.spacing(2)} + 4px) ${
-      theme.spacing(2) + 4
-    }px ${theme.spacing(3)}`,
+    padding: `calc(${theme.spacing(2)} + 4px) ${theme.spacing(
+      2.5
+    )} ${theme.spacing(3)}`,
   },
   mainGridContainer: {
     position: 'relative',

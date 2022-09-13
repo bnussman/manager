@@ -22,15 +22,15 @@ import ProcessGraphs from '../ProcessGraphs';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    padding: `calc(${theme.spacing(3) + 2}px ${theme.spacing(3)} + 2px) ${
-      theme.spacing(5) + 4
-    }px`,
+    padding: `${theme.spacing(3.25)} ${theme.spacing(3.25)} ${theme.spacing(
+      5.5
+    )}`,
   },
   smallGraph: {
     [theme.breakpoints.down('md')]: {
-      marginTop: theme.spacing(3) + 2,
+      marginTop: theme.spacing(3.25),
     },
-    marginTop: theme.spacing(6) + 3,
+    marginTop: `calc(${theme.spacing(6)} + 3px)`,
   },
 }));
 
