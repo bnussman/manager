@@ -236,7 +236,7 @@ export const mockAPIError = (
             config: {},
           })
         ),
-      process.env.NODE_ENV === 'test' ? 0 : 250
+      import.meta.env.NODE_ENV === 'test' ? 0 : 250
     )
   );
 

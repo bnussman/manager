@@ -33,7 +33,7 @@ function getConfiguration() {
 
   const env = {
     ...parsedConf,
-    ...process.env,
+    ...import.meta.env,
   };
 
   return { env };

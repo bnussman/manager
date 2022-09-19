@@ -1,10 +1,10 @@
 'use strict';
 
-const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
+const PORT = import.meta.env.PORT || 3000;
+const HOST = import.meta.env.HOST || '0.0.0.0';
 
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-const apiProxyUrl = process.env.REACT_APP_API_ROOT;
+const protocol = import.meta.env.HTTPS === 'true' ? 'https' : 'http';
+const apiProxyUrl = import.meta.env.REACT_APP_API_ROOT;
 
 module.exports = {
   compress: true,

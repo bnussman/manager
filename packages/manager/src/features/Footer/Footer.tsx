@@ -123,7 +123,7 @@ export const Footer: React.FC<Props> = (props) => {
 };
 
 const renderVersion = (className: string) => {
-  const { VERSION } = process.env;
+  const { VERSION } = import.meta.env;
   if (!VERSION) {
     return null;
   }

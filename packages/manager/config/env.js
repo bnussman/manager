@@ -7,7 +7,7 @@ const paths = require('./paths');
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
 
-const NODE_ENV = process.env.NODE_ENV;
+const NODE_ENV = import.meta.env.NODE_ENV;
 if (!NODE_ENV) {
   throw new Error(
     'The NODE_ENV environment variable is required but was not specified.'
@@ -47,7 +47,7 @@ dotenvFiles.forEach((dotenvFile) => {
 // https://github.com/facebookincubator/create-react-app/issues/1023#issuecomment-265344421
 // We also resolve them to make sure all tools using them work consistently.
 const appDirectory = fs.realpathSync(process.cwd());
-process.env.NODE_PATH = (process.env.NODE_PATH || '')
+import.meta.env.NODE_PATH = (import.meta.env.NODE_PATH || '')
   .split(path.delimiter)
   .filter((folder) => folder && !path.isAbsolute(folder))
   .map((folder) => path.resolve(appDirectory, folder))
@@ -57,19 +57,19 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 function getClientEnvironment(publicUrl) {
-  const raw = Object.keys(process.env)
+  const raw = Object.keys(import.meta.env)
     .filter((key) => REACT_APP.test(key))
     .reduce(
       (env, key) => {
-        env[key] = process.env[key];
+        env[key] = import.meta.env[key];
         return env;
       },
       {
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.
-        NODE_ENV: process.env.NODE_ENV || 'development',
+        NODE_ENV: import.meta.env.NODE_ENV || 'development',
         // Useful for resolving the correct path to static assets in `public`.
-        // For example, <img src={process.env.PUBLIC_URL + '/img/logo.svg'} />.
+        // For example, <img src={import.meta.env.PUBLIC_URL + '/img/logo.svg'} />.
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
@@ -78,7 +78,7 @@ function getClientEnvironment(publicUrl) {
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
-    'process.env': Object.keys(raw).reduce((env, key) => {
+    'import.meta.env': Object.keys(raw).reduce((env, key) => {
       env[key] = JSON.stringify(raw[key]);
       return env;
     }, {}),

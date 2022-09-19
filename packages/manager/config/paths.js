@@ -9,9 +9,9 @@ const url = require('url');
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
-const envPublicUrl = process.env.PUBLIC_URL;
+const envPublicUrl = import.meta.env.PUBLIC_URL;
 
-const envAppVersion = process.env.VERSION;
+const envAppVersion = import.meta.env.VERSION;
 
 function ensureSlash(pathVar, needsSlash) {
   const hasSlash = pathVar.endsWith('/');
