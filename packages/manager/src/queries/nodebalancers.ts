@@ -1,11 +1,13 @@
 import {
   deleteNodeBalancer,
+  getNodeBalancer,
   getNodeBalancerConfigs,
   getNodeBalancers,
   getNodeBalancerStats,
   NodeBalancer,
   NodeBalancerConfig,
   NodeBalancerStats,
+  updateNodeBalancer,
 } from '@linode/api-v4/lib/nodebalancers';
 import { APIError, ResourcePage } from '@linode/api-v4/lib/types';
 import { DateTime } from 'luxon';
@@ -46,6 +48,19 @@ export const useNodeBalancersQuery = (params: any, filter: any) =>
     [queryKey, params, filter],
     () => getNodeBalancers(params, filter),
     { keepPreviousData: true }
+  );
+
+export const useNodeBalancerQuery = (id: number) =>
+  useQuery<NodeBalancer, APIError[]>([queryKey, id], () => getNodeBalancer(id));
+
+export const useNodebalancerUpdateMutation = (id: number) =>
+  useMutation<NodeBalancer, APIError[], Partial<NodeBalancer>>(
+    (data) => updateNodeBalancer(id, data),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries([queryKey]);
+      },
+    }
   );
 
 export const useNodebalancerDeleteMutation = (id: number) =>

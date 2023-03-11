@@ -10,14 +10,15 @@ import MetricsDisplay from 'src/components/LineGraph/MetricsDisplay';
 import getUserTimezone from 'src/utilities/getUserTimezone';
 import PendingIcon from 'src/assets/icons/pending.svg';
 import { formatBitsPerSecond } from 'src/features/Longview/shared/utilities';
-import { ExtendedNodeBalancer } from 'src/features/NodeBalancers/types';
 import { useProfile } from 'src/queries/profile';
 import { formatNumber, getMetrics } from 'src/utilities/statMetrics';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
 import {
   NODEBALANCER_STATS_NOT_READY_API_MESSAGE,
+  useNodeBalancerQuery,
   useNodeBalancerStats,
 } from 'src/queries/nodebalancers';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
@@ -74,19 +75,18 @@ const Loading = () => (
 const STATS_NOT_READY_TITLE =
   'Stats for this NodeBalancer are not available yet';
 
-interface Props {
-  nodeBalancer: ExtendedNodeBalancer;
-}
-
-const TablesPanel: React.FC<Props> = ({ nodeBalancer }) => {
+const TablesPanel = () => {
   const classes = useStyles();
   const theme = useTheme<Theme>();
   const { data: profile } = useProfile();
   const timezone = getUserTimezone(profile);
+  const { nodeBalancerId } = useParams<{ nodeBalancerId: string }>();
+  const id = Number(nodeBalancerId);
+  const { data: nodebalancer } = useNodeBalancerQuery(id);
 
   const { data: stats, isLoading, error } = useNodeBalancerStats(
-    nodeBalancer.id,
-    nodeBalancer.created
+    nodebalancer?.id ?? -1,
+    nodebalancer?.created
   );
 
   const statsErrorString = error
