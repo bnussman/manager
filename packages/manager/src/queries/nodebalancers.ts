@@ -1,4 +1,6 @@
 import {
+  createNodeBalancer,
+  CreateNodeBalancerPayload,
   deleteNodeBalancer,
   getNodeBalancer,
   getNodeBalancerConfigs,
@@ -71,6 +73,17 @@ export const useNodebalancerDeleteMutation = (id: number) =>
       queryClient.removeQueries([queryKey, id]);
     },
   });
+
+export const useNodebalancerCreateMutation = () =>
+  useMutation<NodeBalancer, APIError[], CreateNodeBalancerPayload>(
+    createNodeBalancer,
+    {
+      onSuccess(data) {
+        queryClient.invalidateQueries([queryKey, 'list']);
+        queryClient.setQueryData([queryKey, data.id], data);
+      },
+    }
+  );
 
 export const useAllNodeBalancerConfigsQuery = (id: number) =>
   useQuery<NodeBalancerConfig[], APIError[]>([queryKey, id, 'configs'], () =>
