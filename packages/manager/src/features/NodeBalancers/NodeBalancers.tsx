@@ -8,7 +8,9 @@ import {
 import SuspenseLoader from 'src/components/SuspenseLoader';
 
 const NodeBalancerDetail = React.lazy(() => import('./NodeBalancerDetail'));
-const NodeBalancersLanding = React.lazy(() => import('./NodeBalancersLanding'));
+const NodeBalancersLanding = React.lazy(
+  () => import('./NodeBalancersLanding/NodeBalancersLanding')
+);
 const NodeBalancerCreate = React.lazy(() => import('./NodeBalancerCreate'));
 
 type Props = RouteComponentProps<{}>;

@@ -1,11 +1,18 @@
 import {
+  deleteNodeBalancer,
+  getNodeBalancerConfigs,
+  getNodeBalancers,
   getNodeBalancerStats,
+  NodeBalancer,
+  NodeBalancerConfig,
   NodeBalancerStats,
 } from '@linode/api-v4/lib/nodebalancers';
-import { APIError } from '@linode/api-v4/lib/types';
+import { APIError, ResourcePage } from '@linode/api-v4/lib/types';
 import { DateTime } from 'luxon';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { parseAPIDate } from 'src/utilities/date';
+import { getAll } from 'src/utilities/getAll';
+import { queryClient } from './base';
 
 const queryKey = 'nodebalancers';
 export const NODEBALANCER_STATS_NOT_READY_API_MESSAGE =
@@ -33,3 +40,27 @@ export const useNodeBalancerStats = (id: number, created?: string) => {
     { refetchInterval: 20000, retry: false }
   );
 };
+
+export const useNodeBalancersQuery = (params: any, filter: any) =>
+  useQuery<ResourcePage<NodeBalancer>, APIError[]>(
+    [queryKey, params, filter],
+    () => getNodeBalancers(params, filter),
+    { keepPreviousData: true }
+  );
+
+export const useNodebalancerDeleteMutation = (id: number) =>
+  useMutation<{}, APIError[]>(() => deleteNodeBalancer(id), {
+    onSuccess() {
+      queryClient.invalidateQueries([queryKey]);
+    },
+  });
+
+export const useAllNodeBalancerConfigsQuery = (id: number) =>
+  useQuery<NodeBalancerConfig[], APIError[]>([queryKey, id, 'configs'], () =>
+    getAllNodeBalancerConfigs(id)
+  );
+
+const getAllNodeBalancerConfigs = (id: number) =>
+  getAll<NodeBalancerConfig>((params) =>
+    getNodeBalancerConfigs(id, params)
+  )().then((data) => data.data);

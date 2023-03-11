@@ -1,4 +1,4 @@
-import { NodeBalancerWithConfigs } from '@linode/api-v4/lib/nodebalancers';
+import { NodeBalancer } from '@linode/api-v4/lib/nodebalancers';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import Hidden from 'src/components/core/Hidden';
@@ -7,6 +7,7 @@ import TableCell from 'src/components/TableCell';
 import TableRow from 'src/components/TableRow';
 import IPAddress from 'src/features/linodes/LinodesLanding/IPAddress';
 import RegionIndicator from 'src/features/linodes/LinodesLanding/RegionIndicator';
+import { useAllNodeBalancerConfigsQuery } from 'src/queries/nodebalancers';
 import { convertMegabytesTo } from 'src/utilities/unitConversions';
 import NodeBalancerActionMenu from './NodeBalancerActionMenu';
 
@@ -53,21 +54,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface Props {
-  toggleDialog: (id: number, label: string) => void;
+interface Props extends NodeBalancer {
+  onDelete: (id: number) => void;
 }
 
-type CombinedProps = NodeBalancerWithConfigs & Props;
-
-const NodeBalancerTableRow: React.FC<CombinedProps> = (props) => {
+export const NodeBalancerTableRow = (props: Props) => {
   const classes = useStyles();
-  const { id, label, configs, transfer, ipv4, region, toggleDialog } = props;
+  const { id, label, transfer, ipv4, region, onDelete } = props;
 
-  const nodesUp = configs.reduce(
+  const { data: configs } = useAllNodeBalancerConfigsQuery(id);
+
+  const nodesUp = configs?.reduce(
     (result, config) => config.nodes_status.up + result,
     0
   );
-  const nodesDown = configs.reduce(
+  const nodesDown = configs?.reduce(
     (result, config) => config.nodes_status.down + result,
     0
   );
@@ -76,7 +77,7 @@ const NodeBalancerTableRow: React.FC<CombinedProps> = (props) => {
     <TableRow
       key={id}
       data-qa-nodebalancer-cell={label}
-      className={`${classes.row} fade-in-table`}
+      className={classes.row}
       ariaLabel={label}
     >
       <TableCell data-qa-nodebalancer-label>
@@ -90,7 +91,6 @@ const NodeBalancerTableRow: React.FC<CombinedProps> = (props) => {
           </Link>
         </div>
       </TableCell>
-
       <Hidden smDown>
         <TableCell data-qa-node-status className={classes.statusWrapper}>
           <span>{nodesUp} up</span> - <span>{nodesDown} down</span>
@@ -100,10 +100,9 @@ const NodeBalancerTableRow: React.FC<CombinedProps> = (props) => {
         <TableCell data-qa-transferred>
           {convertMegabytesTo(transfer.total)}
         </TableCell>
-
         <TableCell data-qa-ports>
-          {configs.length === 0 && 'None'}
-          {configs.map(({ port, id: configId }, i) => (
+          {configs?.length === 0 && 'None'}
+          {configs?.map(({ port, id: configId }, i) => (
             <React.Fragment key={configId}>
               <Link
                 to={`/nodebalancers/${id}/configurations/${configId}`}
@@ -116,7 +115,6 @@ const NodeBalancerTableRow: React.FC<CombinedProps> = (props) => {
           ))}
         </TableCell>
       </Hidden>
-
       <TableCell data-qa-nodebalancer-ips>
         <div className={classes.ipsWrapper}>
           <IPAddress ips={[ipv4]} showMore />
@@ -127,16 +125,13 @@ const NodeBalancerTableRow: React.FC<CombinedProps> = (props) => {
           <RegionIndicator region={region} />
         </TableCell>
       </Hidden>
-
       <TableCell actionCell>
         <NodeBalancerActionMenu
           nodeBalancerId={id}
-          toggleDialog={toggleDialog}
+          toggleDialog={onDelete}
           label={label}
         />
       </TableCell>
     </TableRow>
   );
 };
-
-export default NodeBalancerTableRow;
