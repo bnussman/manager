@@ -12,8 +12,8 @@ import SafeTabPanel from 'src/components/SafeTabPanel';
 import TabLinkList from 'src/components/TabLinkList';
 import { getErrorMap } from 'src/utilities/errorUtils';
 import NodeBalancerConfigurations from './NodeBalancerConfigurations';
-import NodeBalancerSettings from './NodeBalancerSettings';
-import NodeBalancerSummary from './NodeBalancerSummary';
+import NodeBalancerSettings from './NodeBalancerSettings/NodeBalancerSettings';
+import NodeBalancerSummary from './NodeBalancerSummary/NodeBalancerSummary';
 import {
   useNodeBalancerQuery,
   useNodebalancerUpdateMutation,
@@ -137,7 +137,10 @@ const NodeBalancerDetail = () => {
             <NodeBalancerSummary />
           </SafeTabPanel>
           <SafeTabPanel index={1}>
-            <NodeBalancerConfigurations />
+            <NodeBalancerConfigurations
+              nodeBalancerLabel={nodebalancer.label}
+              nodeBalancerRegion={nodebalancer.region}
+            />
           </SafeTabPanel>
           <SafeTabPanel index={2}>
             <NodeBalancerSettings />

@@ -1,23 +1,9 @@
-import { NodeBalancer } from '@linode/api-v4/lib/nodebalancers';
-import { APIError } from '@linode/api-v4/lib/types';
 import * as React from 'react';
-import { compose } from 'recompose';
+import { NodeBalancer } from '@linode/api-v4/lib/nodebalancers';
 import EnhancedSelect, { Item } from 'src/components/EnhancedSelect/Select';
-import RenderGuard, { RenderGuardProps } from 'src/components/RenderGuard';
 import { Props as TextFieldProps } from 'src/components/TextField';
-import withNodeBalancers from 'src/containers/withNodeBalancers.container';
-import {
-  WithNodeBalancerActions,
-  withNodeBalancerActions,
-} from 'src/store/nodeBalancer/nodeBalancer.containers';
+import { useAllNodeBalancersQuery } from 'src/queries/nodebalancers';
 import { getErrorStringOrDefault } from 'src/utilities/errorUtils';
-
-interface WithNodeBalancersProps {
-  nodeBalancersData: NodeBalancer[];
-  nodeBalancersLoading: boolean;
-  nodeBalancersError?: APIError[];
-  nodeBalancersLastUpdated: number;
-}
 
 interface Props {
   generalError?: string;
@@ -28,8 +14,6 @@ interface Props {
   handleChange: (nodeBalancer: NodeBalancer) => void;
   textFieldProps?: TextFieldProps;
 }
-
-type CombinedProps = Props & WithNodeBalancersProps & WithNodeBalancerActions;
 
 const nodeBalancersToItems = (nodeBalancers: NodeBalancer[]): Item<number>[] =>
   nodeBalancers.map((thisNodeBalancer) => ({
@@ -50,39 +34,26 @@ const nodeBalancerFromItems = (
   );
 };
 
-const NodeBalancerSelect: React.FC<CombinedProps> = (props) => {
+const NodeBalancerSelect = (props: Props) => {
   const {
     disabled,
     generalError,
     handleChange,
     nodeBalancerError,
-    nodeBalancersError,
-    nodeBalancersLoading,
-    nodeBalancersLastUpdated,
-    nodeBalancersData,
-    nodeBalancerActions,
     region,
     selectedNodeBalancer,
   } = props;
 
-  React.useEffect(() => {
-    // If NodeBalacers have not yet been requested when this component was mounted,
-    // make the API call to get them.
-    if (nodeBalancersLastUpdated === 0) {
-      nodeBalancerActions.getAllNodeBalancers();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data, isLoading, error } = useAllNodeBalancersQuery();
 
-  const nodeBalancer = region
-    ? nodeBalancersData.filter(
-        (thisNodeBalancer) => thisNodeBalancer.region === region
-      )
-    : nodeBalancersData;
-  const options = nodeBalancersToItems(nodeBalancer);
+  const filteredData = region
+    ? data?.filter((thisNodeBalancer) => thisNodeBalancer.region === region)
+    : data;
+
+  const options = nodeBalancersToItems(filteredData ?? []);
 
   const noOptionsMessage =
-    !nodeBalancerError && !nodeBalancersLoading && options.length === 0
+    !nodeBalancerError && !isLoading && options.length === 0
       ? 'You have no NodeBalancers to choose from'
       : 'No Options';
 
@@ -93,12 +64,12 @@ const NodeBalancerSelect: React.FC<CombinedProps> = (props) => {
       value={nodeBalancerFromItems(options, selectedNodeBalancer)}
       options={options}
       disabled={disabled}
-      isLoading={nodeBalancersLoading}
+      isLoading={isLoading}
       onChange={(selected: Item<number>) => {
         return handleChange(selected.data);
       }}
       errorText={getErrorStringOrDefault(
-        generalError || nodeBalancerError || nodeBalancersError || ''
+        generalError || nodeBalancerError || error?.[0].reason || ''
       )}
       isClearable={false}
       textFieldProps={props.textFieldProps}
@@ -107,8 +78,4 @@ const NodeBalancerSelect: React.FC<CombinedProps> = (props) => {
   );
 };
 
-export default compose<CombinedProps, Props & RenderGuardProps>(
-  RenderGuard,
-  withNodeBalancerActions,
-  withNodeBalancers()
-)(NodeBalancerSelect);
+export default NodeBalancerSelect;

@@ -203,7 +203,6 @@ export class App extends React.Component<CombinedProps, State> {
       notificationsError,
       volumesError,
       bucketsError,
-      nodeBalancersError,
     } = this.props;
 
     if (hasError) {
@@ -221,8 +220,7 @@ export class App extends React.Component<CombinedProps, State> {
         typesError,
         notificationsError,
         volumesError,
-        bucketsError,
-        nodeBalancersError
+        bucketsError
       )
     ) {
       return null;
@@ -267,7 +265,6 @@ interface StateProps {
   linodesLoading: boolean;
   linodesError?: APIError[];
   volumesError?: APIError[];
-  nodeBalancersError?: APIError[];
   bucketsError?: APIError[];
   notificationsError?: APIError[];
   typesError?: APIError[];
@@ -289,7 +286,6 @@ const mapStateToProps: MapState<StateProps, Props> = (state) => ({
     state
   ),
   linodesLoading: state.__resources.linodes.loading,
-  nodeBalancersError: path(['read'], state.__resources.nodeBalancers.error),
   appIsLoading: state.initialLoad.appIsLoading,
   featureFlagsLoading: state.featureFlagsLoad.featureFlagsLoading,
 });

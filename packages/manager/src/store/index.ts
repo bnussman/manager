@@ -67,14 +67,6 @@ import longviewStats, {
   defaultState as defaultLongviewStatsState,
   State as LongviewStatsState,
 } from 'src/store/longviewStats/longviewStats.reducer';
-import nodeBalancers, {
-  defaultState as defaultNodeBalancerState,
-  State as NodeBalancersState,
-} from 'src/store/nodeBalancer/nodeBalancer.reducer';
-import nodeBalancerConfigs, {
-  defaultState as defaultNodeBalancerConfigState,
-  State as NodeBalancerConfigsState,
-} from 'src/store/nodeBalancerConfig/nodeBalancerConfig.reducer';
 import stackScriptDialog, {
   defaultState as stackScriptDialogDefaultState,
   State as StackScriptDialogState,
@@ -101,8 +93,6 @@ import mockFeatureFlags, {
   defaultMockFeatureFlagState,
   MockFeatureFlagState,
 } from './mockFeatureFlags';
-import nodeBalancerEvents from './nodeBalancer/nodeBalancer.events';
-import nodeBalancerConfigEvents from './nodeBalancerConfig/nodeBalancerConfig.events';
 import notifications, {
   defaultState as notificationsDefaultState,
   State as NotificationsState,
@@ -128,8 +118,6 @@ const __resourcesDefaultState = {
   linodes: defaultLinodesState,
   linodeConfigs: defaultLinodeConfigsState,
   linodeDisks: defaultLinodeDisksState,
-  nodeBalancerConfigs: defaultNodeBalancerConfigState,
-  nodeBalancers: defaultNodeBalancerState,
   notifications: notificationsDefaultState,
   types: defaultTypesState,
   vlans: defaultVLANState,
@@ -140,8 +128,6 @@ export interface ResourcesState {
   linodes: LinodesState;
   linodeConfigs: LinodeConfigsState;
   linodeDisks: LinodeDisksState;
-  nodeBalancerConfigs: NodeBalancerConfigsState;
-  nodeBalancers: NodeBalancersState;
   notifications: NotificationsState;
   types: TypesState;
   vlans: VlanState;
@@ -199,8 +185,6 @@ const __resources = combineReducers({
   linodes,
   linodeConfigs,
   linodeDisks,
-  nodeBalancers,
-  nodeBalancerConfigs,
   notifications,
   types,
   vlans,
@@ -234,8 +218,6 @@ const enhancers = compose(
     combineEventsMiddleware(
       linodeEvents,
       longviewEvents,
-      nodeBalancerEvents,
-      nodeBalancerConfigEvents,
       diskEvents,
       linodeConfigEvents
     )

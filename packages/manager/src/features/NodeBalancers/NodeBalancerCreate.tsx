@@ -39,10 +39,6 @@ import withProfile, { ProfileProps } from 'src/components/withProfile';
 import { dcDisplayCountry } from 'src/constants';
 import withRegions from 'src/containers/regions.container';
 import { hasGrant } from 'src/features/Profile/permissionsHelpers';
-import {
-  withNodeBalancerActions,
-  WithNodeBalancerActions,
-} from 'src/store/nodeBalancer/nodeBalancer.containers';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
 import { isEURegion } from 'src/utilities/formatRegion';
 import { sendCreateNodeBalancerEvent } from 'src/utilities/ga';
@@ -65,6 +61,7 @@ import {
   queryKey,
   reportAgreementSigningError,
 } from 'src/queries/accountAgreements';
+import { createNodeBalancer } from '@linode/api-v4/lib/nodebalancers';
 
 type ClassNames = 'title' | 'sidebar';
 
@@ -86,8 +83,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-type CombinedProps = WithNodeBalancerActions &
-  ProfileProps &
+type CombinedProps = ProfileProps &
   WithRegions &
   RouteComponentProps<{}> &
   WithStyles<ClassNames> &
@@ -310,9 +306,6 @@ class NodeBalancerCreate extends React.Component<CombinedProps, State> {
   };
 
   createNodeBalancer = () => {
-    const {
-      nodeBalancerActions: { createNodeBalancer },
-    } = this.props;
     const { nodeBalancerFields, signedAgreement } = this.state;
 
     /* transform node data for the requests */
@@ -854,7 +847,6 @@ interface WithRegions {
 
 export default recompose<CombinedProps, {}>(
   withRegions,
-  withNodeBalancerActions,
   styled,
   withRouter,
   withProfile,

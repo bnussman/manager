@@ -4,7 +4,6 @@ import { KubernetesCluster } from '@linode/api-v4/lib/kubernetes';
 import { Linode, LinodeType } from '@linode/api-v4/lib/linodes';
 import { NodeBalancer } from '@linode/api-v4/lib/nodebalancers';
 import { Volume } from '@linode/api-v4/lib/volumes';
-import { createSelector } from 'reselect';
 import { displayType } from 'src/features/linodes/presentation';
 import { getDescriptionForCluster } from 'src/features/Kubernetes/kubeUtils';
 import { SearchableItem } from 'src/features/Search/search.interfaces';
@@ -162,13 +161,4 @@ export const bucketToSearchableItem = (
     region: objectStorageClusterDisplay[bucket.cluster],
     description: readableBytes(bucket.size).formatted,
   },
-});
-
-const nodebalSelector = ({ nodeBalancers }: State) =>
-  Object.values(nodeBalancers.itemsById);
-
-export default createSelector(nodebalSelector, (nodebalancers) => {
-  const searchableNodebalancers = nodebalancers.map(nodeBalToSearchableItem);
-
-  return [...searchableNodebalancers];
 });

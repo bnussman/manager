@@ -75,7 +75,18 @@ export const useAllNodeBalancerConfigsQuery = (id: number) =>
     getAllNodeBalancerConfigs(id)
   );
 
-const getAllNodeBalancerConfigs = (id: number) =>
+export const getAllNodeBalancerConfigs = (id: number) =>
   getAll<NodeBalancerConfig>((params) =>
     getNodeBalancerConfigs(id, params)
   )().then((data) => data.data);
+
+export const getAllNodeBalancers = () =>
+  getAll<NodeBalancer>((params) => getNodeBalancers(params))().then(
+    (data) => data.data
+  );
+
+// So sad. Please don't use
+export const useAllNodeBalancersQuery = (enabled = true) =>
+  useQuery<NodeBalancer[], APIError[]>([queryKey, 'all'], getAllNodeBalancers, {
+    enabled,
+  });

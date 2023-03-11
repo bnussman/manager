@@ -25,6 +25,7 @@ import { useAllDatabasesQuery } from 'src/queries/databases';
 import { useAllDomainsQuery } from 'src/queries/domains';
 import { useAllFirewallsQuery } from 'src/queries/firewalls';
 import { useAllKubernetesClustersQuery } from 'src/queries/kubernetes';
+import { useAllNodeBalancersQuery } from 'src/queries/nodebalancers';
 import { useAllVolumesQuery } from 'src/queries/volumes';
 import {
   getAPIErrorOrDefault,
@@ -256,6 +257,11 @@ export const SupportTicketDrawer: React.FC<CombinedProps> = (props) => {
   );
 
   const {
+    data: nodebalancers,
+    isLoading: nodebalancersLoading,
+  } = useAllNodeBalancersQuery(entityType === 'nodebalancer_id');
+
+  const {
     data: clusters,
     isLoading: clustersLoading,
   } = useAllKubernetesClustersQuery(entityType === 'lkecluster_id');
@@ -312,10 +318,7 @@ export const SupportTicketDrawer: React.FC<CombinedProps> = (props) => {
         handleSetOrRequestEntities(entities.linodes, _entityType);
         return;
       }
-      case 'nodebalancer_id': {
-        handleSetOrRequestEntities(entities.nodeBalancers, _entityType);
-        return;
-      }
+      case 'nodebalancer_id':
       case 'lkecluster_id':
       case 'volume_id':
       case 'firewall_id':
@@ -569,6 +572,7 @@ export const SupportTicketDrawer: React.FC<CombinedProps> = (props) => {
       domain_id: domains,
       volume_id: volumes,
       lkecluster_id: clusters,
+      nodebalancer_id: nodebalancers,
     };
 
     if (!reactQueryEntityDataMap[entityType]) {
@@ -611,6 +615,9 @@ export const SupportTicketDrawer: React.FC<CombinedProps> = (props) => {
     }
     if (entityType === 'lkecluster_id') {
       return clustersLoading;
+    }
+    if (entityType === 'nodebalancer_id') {
+      return nodebalancersLoading;
     }
     return entitiesLoading;
   };

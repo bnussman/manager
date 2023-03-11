@@ -4,7 +4,6 @@ import entityErrors from './entitiesErrors';
 import entitiesLoading from './entitiesLoading';
 import getAbuseTicket from './getAbuseTicket';
 import getEntitiesWithGroupsToImport from './getEntitiesWithGroupsToImport';
-import getSearchEntities from './getSearchEntities';
 import inProgressEventForLinode from './inProgressEventForLinode';
 import inProgressEvents from './inProgressEvents';
 import recentEventForLinode from './recentEventForLinode';
@@ -19,7 +18,6 @@ export const initReselectDevtools = () => {
     entitiesLoading,
     getAbuseTicket,
     getEntitiesWithGroupsToImport,
-    getSearchEntities,
     inProgressEventForLinode,
     inProgressEvents,
     recentEventForLinode,

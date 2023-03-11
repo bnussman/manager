@@ -1,19 +1,15 @@
-import { Image, KubernetesCluster, Volume } from '@linode/api-v4';
+import { Image, KubernetesCluster, NodeBalancer, Volume } from '@linode/api-v4';
 import { Domain } from '@linode/api-v4/lib/domains';
 import { ObjectStorageBucket } from '@linode/api-v4/lib/object-storage';
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
-import { ApplicationState } from 'src/store';
-import entitiesErrors, {
-  ErrorObject,
-} from 'src/store/selectors/entitiesErrors';
-import entitiesLoading from 'src/store/selectors/entitiesLoading';
-import getSearchEntities, {
+import { ErrorObject } from 'src/store/selectors/entitiesErrors';
+import {
   bucketToSearchableItem,
   domainToSearchableItem,
   imageToSearchableItem,
   kubernetesClusterToSearchableItem,
+  nodeBalToSearchableItem,
   volumeToSearchableItem,
 } from 'src/store/selectors/getSearchEntities';
 import { refinedSearch } from './refinedSearch';
@@ -32,6 +28,7 @@ interface HandlerProps {
     volumes: Volume[],
     clusters: KubernetesCluster[],
     images: Image[],
+    nodebalancers: NodeBalancer[],
     searchableLinodes: SearchableItem<string | number>[]
   ) => SearchResults;
 }
@@ -66,26 +63,18 @@ export default () => (Component: React.ComponentType<any>) => {
     });
   };
 
-  const connected = connect((state: ApplicationState) => {
-    return {
-      entities: getSearchEntities(state.__resources),
-      entitiesLoading: entitiesLoading(state.__resources),
-      errors: entitiesErrors(state.__resources),
-    };
-  });
-
   return compose<SearchProps, {}>(
-    connected,
     withStateHandlers<any, any, any>(
       { searchResultsByEntity: emptyResults },
       {
-        search: (_, props: SearchProps) => (
+        search: () => (
           query: string,
           objectStorageBuckets: ObjectStorageBucket[],
           domains: Domain[],
           volumes: Volume[],
           clusters: KubernetesCluster[],
           images: Image[],
+          nodebalancers: NodeBalancer[],
           searchableLinodes: SearchableItem<string | number>[]
         ) => {
           const searchableBuckets = objectStorageBuckets.map((bucket) =>
@@ -104,15 +93,18 @@ export default () => (Component: React.ComponentType<any>) => {
           const searchableClusters = clusters.map((cluster) =>
             kubernetesClusterToSearchableItem(cluster)
           );
+          const searchableNodeBalancers = nodebalancers.map((nodebalancer) =>
+            nodeBalToSearchableItem(nodebalancer)
+          );
           const results = search(
             [
               ...searchableLinodes,
               ...searchableImages,
-              ...props.entities,
               ...searchableBuckets,
               ...searchableDomains,
               ...searchableVolumes,
               ...searchableClusters,
+              ...searchableNodeBalancers,
             ],
             query
           );

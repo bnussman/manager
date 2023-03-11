@@ -28,12 +28,11 @@ const _getEntityByIDFromStore = (
     return;
   }
   const _store = store.getState();
-  const { linodes, nodeBalancers } = _store.__resources;
+  const { linodes } = _store.__resources;
+  // eslint-disable-next-line sonarjs/no-small-switch
   switch (entityType) {
     case 'linode':
       return linodes.itemsById[entityID];
-    case 'nodebalancer':
-      return nodeBalancers.itemsById[entityID];
     default:
       return;
   }

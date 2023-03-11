@@ -1,14 +1,15 @@
 import {
+  createNodeBalancerConfig,
   createNodeBalancerConfigNode,
+  deleteNodeBalancerConfig,
   deleteNodeBalancerConfigNode,
   getNodeBalancerConfigNodes,
-  getNodeBalancerConfigs,
   NodeBalancerConfig,
   NodeBalancerConfigNode,
+  updateNodeBalancerConfig,
   updateNodeBalancerConfigNode,
 } from '@linode/api-v4/lib/nodebalancers';
 import { APIError, ResourcePage } from '@linode/api-v4/lib/types';
-import * as Promise from 'bluebird';
 import {
   append,
   clone,
@@ -40,10 +41,7 @@ import Grid from 'src/components/Grid';
 import PromiseLoader, {
   PromiseLoaderResponse,
 } from 'src/components/PromiseLoader/PromiseLoader';
-import {
-  withNodeBalancerConfigActions,
-  WithNodeBalancerConfigActions,
-} from 'src/store/nodeBalancerConfig/nodeBalancerConfig.containers';
+import { getAllNodeBalancerConfigs } from 'src/queries/nodebalancers';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
 import scrollErrorIntoView from 'src/utilities/scrollErrorIntoView';
 import NodeBalancerConfigPanel from '../NodeBalancerConfigPanel';
@@ -122,23 +120,24 @@ interface State {
 }
 
 type CombinedProps = Props &
-  WithNodeBalancerConfigActions &
   RouteProps &
   WithStyles<ClassNames> &
   PreloadedProps;
 
 const getConfigsWithNodes = (nodeBalancerId: number) => {
-  return getNodeBalancerConfigs(nodeBalancerId).then((configs) => {
-    return Promise.map(configs.data, (config) => {
-      return getNodeBalancerConfigNodes(nodeBalancerId, config.id).then(
-        ({ data: nodes }) => {
-          return {
-            ...config,
-            nodes: parseAddresses(nodes),
-          };
-        }
-      );
-    }).catch((_) => []);
+  return getAllNodeBalancerConfigs(nodeBalancerId).then((configs) => {
+    return Promise.all(
+      configs.map((config) => {
+        return getNodeBalancerConfigNodes(nodeBalancerId, config.id).then(
+          ({ data: nodes }) => {
+            return {
+              ...config,
+              nodes: parseAddresses(nodes),
+            };
+          }
+        );
+      })
+    );
   });
 };
 
@@ -157,6 +156,7 @@ const formatNodesStatus = (nodes: NodeBalancerConfigNodeFields[]) => {
     statuses.unknown ? `, ${statuses.unknown} unknown` : ''
   }`;
 };
+
 class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
   static defaultDeleteConfigConfirmDialogState = {
     submitting: false,
@@ -292,7 +292,6 @@ class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
   ) => {
     /* Update a config and its nodes simultaneously */
     const {
-      nodeBalancerConfigActions: { updateNodeBalancerConfig },
       match: {
         params: { nodeBalancerId },
       },
@@ -305,11 +304,11 @@ class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
       return;
     }
 
-    const nodeBalUpdate = updateNodeBalancerConfig({
-      nodeBalancerId: Number(nodeBalancerId),
-      nodeBalancerConfigId: config.id,
-      ...configPayload,
-    })
+    const nodeBalUpdate = updateNodeBalancerConfig(
+      Number(nodeBalancerId),
+      config.id,
+      configPayload
+    )
       .then((nodeBalancerConfig) => {
         // update config data
         const newConfigs = clone(this.state.configs);
@@ -416,7 +415,6 @@ class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
      */
 
     const {
-      nodeBalancerConfigActions: { createNodeBalancerConfig },
       match: {
         params: { nodeBalancerId },
       },
@@ -426,10 +424,7 @@ class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
       return;
     }
 
-    createNodeBalancerConfig({
-      nodeBalancerId: Number(nodeBalancerId),
-      ...configPayload,
-    })
+    createNodeBalancerConfig(Number(nodeBalancerId), configPayload)
       .then((nodeBalancerConfig) => {
         // update config data
         const newConfigs = clone(this.state.configs);
@@ -582,7 +577,6 @@ class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
     });
 
     const {
-      nodeBalancerConfigActions: { deleteNodeBalancerConfig },
       match: {
         params: { nodeBalancerId },
       },
@@ -596,10 +590,7 @@ class NodeBalancerConfigurations extends React.Component<CombinedProps, State> {
     }
 
     // actually delete a real config
-    deleteNodeBalancerConfig({
-      nodeBalancerId: Number(nodeBalancerId),
-      nodeBalancerConfigId: config.id,
-    })
+    deleteNodeBalancerConfig(Number(nodeBalancerId), config.id)
       .then((_) => {
         // update config data
         const newConfigs = clone(this.state.configs);
@@ -1165,11 +1156,6 @@ const preloaded = PromiseLoader<CombinedProps>({
   },
 });
 
-const enhanced = composeC<CombinedProps, Props>(
-  styled,
-  withRouter,
-  preloaded,
-  withNodeBalancerConfigActions
-);
+const enhanced = composeC<CombinedProps, Props>(styled, withRouter, preloaded);
 
 export default enhanced(NodeBalancerConfigurations);
