@@ -14,7 +14,7 @@ import { DateTime } from 'luxon';
 import { useMutation, useQuery } from 'react-query';
 import { parseAPIDate } from 'src/utilities/date';
 import { getAll } from 'src/utilities/getAll';
-import { queryClient } from './base';
+import { queryClient, updateInPaginatedStore } from './base';
 
 const queryKey = 'nodebalancers';
 export const NODEBALANCER_STATS_NOT_READY_API_MESSAGE =
@@ -45,7 +45,7 @@ export const useNodeBalancerStats = (id: number, created?: string) => {
 
 export const useNodeBalancersQuery = (params: any, filter: any) =>
   useQuery<ResourcePage<NodeBalancer>, APIError[]>(
-    [queryKey, params, filter],
+    [queryKey, 'list', params, filter],
     () => getNodeBalancers(params, filter),
     { keepPreviousData: true }
   );
@@ -57,8 +57,9 @@ export const useNodebalancerUpdateMutation = (id: number) =>
   useMutation<NodeBalancer, APIError[], Partial<NodeBalancer>>(
     (data) => updateNodeBalancer(id, data),
     {
-      onSuccess() {
-        queryClient.invalidateQueries([queryKey]);
+      onSuccess(data) {
+        queryClient.setQueryData([queryKey, id], data);
+        updateInPaginatedStore([queryKey, 'list'], id, data);
       },
     }
   );
@@ -66,7 +67,8 @@ export const useNodebalancerUpdateMutation = (id: number) =>
 export const useNodebalancerDeleteMutation = (id: number) =>
   useMutation<{}, APIError[]>(() => deleteNodeBalancer(id), {
     onSuccess() {
-      queryClient.invalidateQueries([queryKey]);
+      queryClient.invalidateQueries([queryKey, 'list']);
+      queryClient.removeQueries([queryKey, id]);
     },
   });
 

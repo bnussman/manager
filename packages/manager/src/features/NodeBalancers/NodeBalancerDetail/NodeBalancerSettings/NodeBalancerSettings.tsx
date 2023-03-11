@@ -29,9 +29,15 @@ export const NodeBalancerSettings = () => {
   const { data: nodebalancer } = useNodeBalancerQuery(id);
 
   const {
-    mutateAsync: updateNodeBalancer,
-    error: updateError,
-    isLoading: isUpdating,
+    mutateAsync: updateNodeBalancerLabel,
+    error: labelError,
+    isLoading: isUpdatingLabel,
+  } = useNodebalancerUpdateMutation(id);
+
+  const {
+    mutateAsync: updateNodeBalancerThrottle,
+    error: throttleError,
+    isLoading: isUpdatingThrottle,
   } = useNodebalancerUpdateMutation(id);
 
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState<boolean>(
@@ -65,7 +71,7 @@ export const NodeBalancerSettings = () => {
         <TextField
           label="Label"
           placeholder="Enter a label between 3 and 32 characters"
-          errorText={updateError?.[0].reason}
+          errorText={labelError?.[0].reason}
           onChange={(e) => setLabel(e.target.value)}
           value={label}
           data-qa-label-panel
@@ -73,9 +79,9 @@ export const NodeBalancerSettings = () => {
         <Button
           buttonType="primary"
           className={classes.spacing}
-          loading={isUpdating}
+          loading={isUpdatingLabel}
           disabled={label === nodebalancer.label}
-          onClick={() => updateNodeBalancer({ label })}
+          onClick={() => updateNodeBalancerLabel({ label })}
           data-qa-label-save
         >
           Save
@@ -89,7 +95,7 @@ export const NodeBalancerSettings = () => {
             ),
           }}
           label="Connection Throttle"
-          errorText={updateError?.[0].reason}
+          errorText={throttleError?.[0].reason}
           onChange={(e) =>
             setConnectionThrottle(
               controlClientConnectionThrottle(e.target.value)
@@ -106,10 +112,12 @@ export const NodeBalancerSettings = () => {
         <Button
           buttonType="primary"
           className={classes.spacing}
-          loading={isUpdating}
+          loading={isUpdatingThrottle}
           disabled={connectionThrottle === nodebalancer.client_conn_throttle}
           onClick={() =>
-            updateNodeBalancer({ client_conn_throttle: connectionThrottle })
+            updateNodeBalancerThrottle({
+              client_conn_throttle: connectionThrottle,
+            })
           }
           data-qa-label-save
         >
