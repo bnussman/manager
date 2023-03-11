@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
 import Typography from 'src/components/core/Typography';
 import Notice from 'src/components/Notice';
 import TypeToConfirmDialog from 'src/components/TypeToConfirmDialog';
@@ -18,10 +19,11 @@ export const NodeBalancerDeleteDialog = ({
   onClose,
 }: Props) => {
   const { mutateAsync, isLoading, error } = useNodebalancerDeleteMutation(id);
+  const { push } = useHistory();
 
   const onDelete = async () => {
     await mutateAsync();
-    onClose();
+    push('/nodebalancers');
   };
 
   return (

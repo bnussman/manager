@@ -137,10 +137,7 @@ const NodeBalancerDetail = () => {
             <NodeBalancerSummary />
           </SafeTabPanel>
           <SafeTabPanel index={1}>
-            <NodeBalancerConfigurations
-              nodeBalancerLabel={nodebalancer.label}
-              nodeBalancerRegion={nodebalancer.region}
-            />
+            <NodeBalancerConfigurations />
           </SafeTabPanel>
           <SafeTabPanel index={2}>
             <NodeBalancerSettings />
