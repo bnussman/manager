@@ -1,7 +1,10 @@
 import {
   createNodeBalancer,
+  createNodeBalancerConfig,
+  CreateNodeBalancerConfig,
   CreateNodeBalancerPayload,
   deleteNodeBalancer,
+  deleteNodeBalancerConfig,
   getNodeBalancer,
   getNodeBalancerConfigs,
   getNodeBalancers,
@@ -10,13 +13,19 @@ import {
   NodeBalancerConfig,
   NodeBalancerStats,
   updateNodeBalancer,
+  updateNodeBalancerConfig,
 } from '@linode/api-v4/lib/nodebalancers';
 import { APIError, ResourcePage } from '@linode/api-v4/lib/types';
 import { DateTime } from 'luxon';
 import { useMutation, useQuery } from 'react-query';
 import { parseAPIDate } from 'src/utilities/date';
 import { getAll } from 'src/utilities/getAll';
-import { queryClient, updateInPaginatedStore } from './base';
+import {
+  itemInListCreationHandler,
+  itemInListMutationHandler,
+  queryClient,
+  updateInPaginatedStore,
+} from './base';
 
 const queryKey = 'nodebalancers';
 export const NODEBALANCER_STATS_NOT_READY_API_MESSAGE =
@@ -81,6 +90,40 @@ export const useNodebalancerCreateMutation = () =>
       onSuccess(data) {
         queryClient.invalidateQueries([queryKey, 'list']);
         queryClient.setQueryData([queryKey, data.id], data);
+      },
+    }
+  );
+
+export const useNodebalancerConfigCreateMutation = (id: number) =>
+  useMutation<NodeBalancerConfig, APIError[], CreateNodeBalancerConfig>(
+    (data) => createNodeBalancerConfig(id, data),
+    itemInListCreationHandler([queryKey, id, 'configs'])
+  );
+
+export const useNodebalancerConfigUpdateMutation = (nodebalancerId: number) =>
+  useMutation<
+    NodeBalancerConfig,
+    APIError[],
+    Partial<CreateNodeBalancerConfig> & { configId: number }
+  >(
+    ({ configId, ...data }) =>
+      updateNodeBalancerConfig(nodebalancerId, configId, data),
+    itemInListMutationHandler([queryKey, nodebalancerId, 'configs'])
+  );
+
+export const useNodebalancerConfigDeleteMutation = (nodebalancerId: number) =>
+  useMutation<{}, APIError[], { configId: number }>(
+    ({ configId }) => deleteNodeBalancerConfig(nodebalancerId, configId),
+    {
+      onSuccess(_, vars) {
+        queryClient.setQueryData<NodeBalancerConfig[]>(
+          [queryKey, nodebalancerId, 'configs'],
+          (oldData) => {
+            return (oldData ?? []).filter(
+              (config) => config.id !== vars.configId
+            );
+          }
+        );
       },
     }
   );

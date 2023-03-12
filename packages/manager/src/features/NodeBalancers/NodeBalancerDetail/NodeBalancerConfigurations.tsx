@@ -1,12 +1,9 @@
 import {
-  createNodeBalancerConfig,
   createNodeBalancerConfigNode,
-  deleteNodeBalancerConfig,
   deleteNodeBalancerConfigNode,
   getNodeBalancerConfigNodes,
   NodeBalancerConfig,
   NodeBalancerConfigNode,
-  updateNodeBalancerConfig,
   updateNodeBalancerConfigNode,
 } from '@linode/api-v4/lib/nodebalancers';
 import { APIError } from '@linode/api-v4/lib/types';
@@ -34,6 +31,10 @@ import { DocumentTitleSegment } from 'src/components/DocumentTitle';
 import Grid from 'src/components/Grid';
 import {
   getAllNodeBalancerConfigs,
+  useAllNodeBalancerConfigsQuery,
+  useNodebalancerConfigCreateMutation,
+  useNodebalancerConfigDeleteMutation,
+  useNodebalancerConfigUpdateMutation,
   useNodeBalancerQuery,
 } from 'src/queries/nodebalancers';
 import { getAPIErrorOrDefault } from 'src/utilities/errorUtils';
@@ -77,43 +78,6 @@ interface MatchProps {
   configId?: string;
 }
 
-interface State {
-  configs: NodeBalancerConfigFieldsWithStatus[];
-  configErrors: APIError[][];
-  configSubmitting: boolean[];
-  panelMessages: string[];
-  panelNodeMessages: string[];
-  /*
-   * If the following is set to true, then the last element of each of the above
-   * arrays is related to this unsaved config.
-   */
-  hasUnsavedConfig: boolean;
-  deleteConfigConfirmDialog: {
-    open: boolean;
-    submitting: boolean;
-    errors?: APIError[];
-    idxToDelete?: number;
-    portToDelete?: number;
-  };
-}
-
-const getConfigsWithNodes = (nodeBalancerId: number) => {
-  return getAllNodeBalancerConfigs(nodeBalancerId).then((configs) => {
-    return Promise.all(
-      configs.map((config) => {
-        return getNodeBalancerConfigNodes(nodeBalancerId, config.id).then(
-          ({ data: nodes }) => {
-            return {
-              ...config,
-              nodes: parseAddresses(nodes),
-            };
-          }
-        );
-      })
-    );
-  });
-};
-
 const formatNodesStatus = (nodes: NodeBalancerConfigNodeFields[]) => {
   const statuses = nodes.reduce(
     (acc, node) => {
@@ -155,12 +119,20 @@ const NodeBalancerConfigurations = () => {
   const { nodeBalancerId, configId } = useParams<MatchProps>();
   const id = Number(nodeBalancerId);
 
-  const { data } = useConfigsWithNodesQuery(id);
+  const { data } = useAllNodeBalancerConfigsQuery(id);
   const { data: nodebalancer } = useNodeBalancerQuery(id);
 
-  const [configs, setConfigs] = React.useState<
-    NodeBalancerConfigFieldsWithStatus[]
-  >(data ?? []);
+  const {
+    mutateAsync: createNodeBalancerConfig,
+  } = useNodebalancerConfigCreateMutation(id);
+  const {
+    mutateAsync: deleteNodeBalancerConfig,
+  } = useNodebalancerConfigDeleteMutation(id);
+  const {
+    mutateAsync: updateNodeBalancerConfig,
+  } = useNodebalancerConfigUpdateMutation(id);
+
+  const [configs, setConfigs] = React.useState(data ?? []);
   const [configErrors, setConfigErrors] = React.useState<APIError[][]>([]);
 
   const [configSubmitting, setConfigSubmitting] = React.useState<boolean[]>([]);
@@ -294,11 +266,10 @@ const NodeBalancerConfigurations = () => {
       return;
     }
 
-    const nodeBalUpdate = updateNodeBalancerConfig(
-      Number(nodeBalancerId),
-      config.id,
-      configPayload
-    )
+    const nodeBalUpdate = updateNodeBalancerConfig({
+      configId: config.id,
+      ...configPayload,
+    })
       .then((nodeBalancerConfig) => {
         // update config data
         const newConfigs = clone(configs);
@@ -394,7 +365,7 @@ const NodeBalancerConfigurations = () => {
       return;
     }
 
-    createNodeBalancerConfig(Number(nodeBalancerId), configPayload)
+    createNodeBalancerConfig(configPayload)
       .then((nodeBalancerConfig) => {
         // update config data
         const newConfigs = clone(configs ?? []);
@@ -528,7 +499,7 @@ const NodeBalancerConfigurations = () => {
     }
 
     // actually delete a real config
-    deleteNodeBalancerConfig(Number(nodeBalancerId), config.id)
+    deleteNodeBalancerConfig({ configId: config.id })
       .then((_) => {
         // update config data
         const newConfigs = clone(configs);
@@ -1014,10 +985,5 @@ const NodeBalancerConfigurations = () => {
     </div>
   );
 };
-
-const useConfigsWithNodesQuery = (id: number) =>
-  useQuery(['nodebalancers', id, 'configs-with-nodes'], () =>
-    getConfigsWithNodes(id)
-  );
 
 export default NodeBalancerConfigurations;
